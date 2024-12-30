@@ -1,7 +1,5 @@
 from rest_framework import serializers  
-from .models import Filiere
-from .models import Prof
-from .models import Categorie
+from .models import *
 
 class FiliereSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,3 +15,9 @@ class CategorieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categorie
         fields = '__all__'
+
+class SalleSerialiser(serializers.ModelSerializer):
+    class Meta:
+        model = Salle
+        fields = '__all__'
+
