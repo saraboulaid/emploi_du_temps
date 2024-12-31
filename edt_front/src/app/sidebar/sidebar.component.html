@@ -1,0 +1,33 @@
+<div class="sidebar">
+  <div class="logo">
+    <div class="nav__brand">
+      <ion-icon
+        name="menu-outline"
+        class="nav__toggle"
+        id="nav-toggle"
+      ></ion-icon>
+      <a href="#" class="nav__logo">EnsaEdu</a>
+    </div>
+  </div>
+  <ul class="menu">
+    <li
+      *ngFor="let item of menuItems"
+      [class.active]="item === activeItem"
+      (click)="setActiveItem(item)"
+    >
+      <a href="#">
+        <ion-icon [name]="item.icon" class="nav__icon"></ion-icon>
+        {{ item.name }}
+      </a>
+      <!-- Sous-menu pour les éléments qui en ont -->
+      <!-- <ul *ngIf="item.submenu && item === activeItem" class="submenu">
+        <li *ngFor="let subItem of item.submenu">
+          <a href="#">
+            <ion-icon [name]="subItem.icon" class="submenu__icon"></ion-icon>
+            {{ subItem.name }}
+          </a>
+        </li>
+      </ul> -->
+    </li>
+  </ul>
+</div>

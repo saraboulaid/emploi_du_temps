@@ -1,0 +1,93 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #1e293b; /* Couleur de fond */
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.sidebar .logo {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+}
+
+.nav__logo {
+  color: white;
+  font-weight: 600;
+}
+
+.nav__brand {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu li a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px; /* Bordure arrondie */
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.menu li a:hover {
+  background-color: #3b82f6; /* Bleu clair */
+  transform: scale(1.05); /* Effet d'agrandissement au survol */
+}
+
+.menu li.active a {
+  background-color: #a78bfa; /* Couleur violette pour l'élément actif */
+  color: #000; /* Texte noir */
+}
+
+.menu li a .nav__icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.submenu {
+  list-style: none;
+  padding-left: 20px;
+}
+
+.submenu li {
+  margin: 5px 0;
+}
+
+.submenu li a {
+  color: #ddd;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.submenu li a:hover {
+  color: #fff; /* Blanc au survol */
+}
+
+.submenu li a .submenu__icon {
+  margin-right: 10px;
+  font-size: 1rem;
+}

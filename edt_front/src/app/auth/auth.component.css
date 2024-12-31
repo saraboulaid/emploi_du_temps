@@ -1,0 +1,48 @@
+/* Exemple de styles pour l'animation et le design */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+.blackBlock {
+  transition: all 1s;
+}
+
+.loginForm,
+.signUpForm {
+  transition: all 0.5s linear;
+}
+
+.animate-appear-left {
+  animation: appear-left 0.5s linear forwards;
+}
+
+.animate-appear-right {
+  animation: appear-right 0.5s linear forwards;
+}
+
+@keyframes appear-left {
+  0% {
+    left: -200%;
+    opacity: 0;
+  }
+  50% {
+    left: -100%;
+    opacity: 0;
+  }
+  100% {
+    left: 0%;
+    opacity: 1;
+  }
+}
+
+@keyframes appear-right {
+  0% {
+    left: 200%;
+    opacity: 0;
+  }
+  50% {
+    left: 100%;
+    opacity: 0;
+  }
+  100% {
+    left: 0%;
+    opacity: 1;
+  }
+}
