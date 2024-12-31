@@ -6,14 +6,34 @@ class FiliereSerializer(serializers.ModelSerializer):
         model = Filiere
         fields = '__all__'
 
+class CategorieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categorie
+        fields = '__all__'
+
+class MatiereSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Matiere
+        fields = '__all__'
+
+class TypeSeanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TypeSeance
+        fields = '__all__'
+
 class ProfSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prof
         fields = '__all__'
 
-class CategorieSerializer(serializers.ModelSerializer):
+class ProfTypeSeanceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Categorie
+        model = Prof_TypeSeance
+        fields = '__all__'
+
+class DurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Duration
         fields = '__all__'
 
 class SalleSerialiser(serializers.ModelSerializer):

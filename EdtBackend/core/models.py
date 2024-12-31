@@ -15,19 +15,12 @@ class Type(Enum):
 class Categorie(models.Model):
     nom = models.CharField(max_length=255)
 
-class TypeSeance(models.Model):
-    type_seance = Type
-    volume_horaire_total = models.IntegerField
-    volume_horaire_semaine = models.IntegerField
-    categorie = models.ForeignKey(Categorie,null=True, on_delete=models.SET_NULL)
-
 class Filiere(models.Model):
     nom = models.CharField(max_length=255)
 
 class Matiere(models.Model):
     nom = models.CharField(max_length=255)
-    models.TextField(blank=False)
-    type = models.CharField(max_length=5)
+    semestres = models.TextField(blank=False)
     filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE)
 
     def clean(self):
@@ -38,6 +31,13 @@ class Matiere(models.Model):
 
         if not all(isinstance(i, int) and 1 <= i <= 12 for i in semestres):
             raise ValidationError("Tous les semestres doivent être des entiers entre 1 et 12.") 
+
+class TypeSeance(models.Model):
+    type_seance = Type
+    volume_horaire_total = models.IntegerField
+    volume_horaire_semaine = models.IntegerField
+    categorie = models.ForeignKey(Categorie,null=True, on_delete=models.SET_NULL)
+    matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE)
 
 class Prof(models.Model):
     nom = models.CharField(max_length=255)
