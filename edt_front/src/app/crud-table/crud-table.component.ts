@@ -10,6 +10,28 @@ export class CrudTableComponent implements OnInit {
   tableColumns: string[] = [];
   tableData: any[] = [];
   name: string | null = null; // Propriété pour stocker le paramètre
+  isDropdownHidden = true;
+  // Variable pour contrôler l'affichage du formulaire de création
+  isCreateFormHidden = true;
+  isFilterDropdownHidden = true;
+  isCrudActivatedHidden = true;
+
+  toggleDropdown() {
+    this.isDropdownHidden = !this.isDropdownHidden;
+  }
+  toggleCrudActivatedHidden() {
+    this.isCrudActivatedHidden = !this.isCrudActivatedHidden;
+  }
+  toggleFilterDropdown() {
+    this.isFilterDropdownHidden = !this.isFilterDropdownHidden;
+  }
+  // Fonction pour basculer l'affichage du formulaire
+  toggleCreateForm() {
+    console.log('Toggling create form');
+    this.isCreateFormHidden = !this.isCreateFormHidden;
+    console.log('isCreateFormHidden:', this.isCreateFormHidden);
+  }
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
