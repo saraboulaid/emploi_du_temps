@@ -15,19 +15,10 @@
       [class.active]="item === activeItem"
       (click)="setActiveItem(item)"
     >
-      <a href="#">
+      <a [routerLink]="item.route" routerLinkActive="active">
         <ion-icon [name]="item.icon" class="nav__icon"></ion-icon>
         {{ item.name }}
       </a>
-      <!-- Sous-menu pour les éléments qui en ont -->
-      <!-- <ul *ngIf="item.submenu && item === activeItem" class="submenu">
-        <li *ngFor="let subItem of item.submenu">
-          <a href="#">
-            <ion-icon [name]="subItem.icon" class="submenu__icon"></ion-icon>
-            {{ subItem.name }}
-          </a>
-        </li>
-      </ul> -->
     </li>
   </ul>
 </div>

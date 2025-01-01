@@ -6,9 +6,10 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { CrudTableComponent } from './crud-table/crud-table.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, SidebarComponent],
+  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajouter cette ligne
