@@ -12,6 +12,8 @@ class CategorieSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class MatiereSerializer(serializers.ModelSerializer):
+    semestres = serializers.PrimaryKeyRelatedField(queryset=Semestre.objects.all(), many=True)
+
     class Meta:
         model = Matiere
         fields = '__all__'
@@ -40,4 +42,3 @@ class SalleSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Salle
         fields = '__all__'
-

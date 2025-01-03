@@ -1,6 +1,4 @@
 from django.db import models
-import json
-from django.forms import ValidationError
 from enum import Enum
 
 class Type(Enum):
@@ -18,24 +16,28 @@ class Categorie(models.Model):
 class Filiere(models.Model):
     nom = models.CharField(max_length=255)
 
+class Semestre(models.Model):
+    SEMESTRE_CHOICES = [
+        ('S1', 'Semestre 1'),
+        ('S2', 'Semestre 2'),
+        ('S3', 'Semestre 3'),
+        ('S4', 'Semestre 4'),
+    ]
+    numero = models.CharField(max_length=2, choices=SEMESTRE_CHOICES, unique=True)
+
 class Matiere(models.Model):
     nom = models.CharField(max_length=255)
-    semestres = models.TextField(blank=False)
+    semestres = models.ManyToManyField(Semestre)
     filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE)
 
-    def clean(self):
-        try:
-            semestres = json.loads(self.misemestre)
-        except json.JSONDecodeError:
-            raise ValidationError("Le champ misemestre doit contenir une liste JSON valide.")
-
-        if not all(isinstance(i, int) and 1 <= i <= 12 for i in semestres):
-            raise ValidationError("Tous les semestres doivent être des entiers entre 1 et 12.") 
-
 class TypeSeance(models.Model):
-    type_seance = Type
-    volume_horaire_total = models.IntegerField
-    volume_horaire_semaine = models.IntegerField
+    type_seance = models.CharField(
+        max_length=50,
+        choices=[(tag.name, tag.value) for tag in Type],
+        unique=True
+    )
+    volume_horaire_total = models.IntegerField()
+    volume_horaire_semaine = models.IntegerField()
     categorie = models.ForeignKey(Categorie,null=True, on_delete=models.SET_NULL)
     matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE)
 
@@ -49,16 +51,11 @@ class Prof_TypeSeance(models.Model):
 
 class Duration(models.Model):
     jour = models.CharField(max_length=255)
-    horaire_debut_seance = models.IntegerField
-    horaire_fin_seance = models.IntegerField
+    horaire_debut_seance = models.TimeField()
+    horaire_fin_seance = models.TimeField()
 
 class Salle(models.Model):
     nom = models.CharField(max_length=255)
-    effectif = models.IntegerField
+    effectif = models.IntegerField()
     categorie = models.ForeignKey(Categorie,null=True, on_delete=models.SET_NULL)
-
-class Seance(models.Model):
-    salle = models.ForeignKey(Salle,null=True, on_delete=models.SET_NULL)
-    prof = models.ForeignKey(Prof,null=True, on_delete=models.SET_NULL)
-    matiere = models.ForeignKey(TypeSeance,null=True, on_delete=models.SET_NULL)
     

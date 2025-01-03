@@ -107,7 +107,10 @@ def get_matieres(request):
 def create_matiere(request):
     serializer = MatiereSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        matiere = serializer.save()
+        if 'semestres' in request.data:
+            matiere.semestres.set(request.data['semestres'])
+            matiere.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -129,6 +132,10 @@ def update_matiere(request, pk):
     serializer = MatiereSerializer(matiere, data=request.data)
     if serializer.is_valid():
         serializer.save()
+        matiere = serializer.save()
+        if 'semestres' in request.data:
+            matiere.semestres.set(request.data['semestres'])
+            matiere.save()
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -256,8 +263,14 @@ def assign_prof(request, pk):
     except Prof.DoesNotExist:
         return Response({'error': 'Nous n\'avons pas trouver le professeur'}, status=status.HTTP_404_NOT_FOUND)
     
+    type_seance = request.data.get('type_seance')
+    matiere = request.data.get('matiere')
+    
+    if not type_seance or not matiere:
+        return Response({'error': 'Les champs "type_seance" et "matiere" sont requis.'}, status=status.HTTP_400_BAD_REQUEST)
+    
     try:
-        typeSeance = TypeSeance.objects.get(type=request.data.get('type'),matiere=request.data.get('matiere'))
+        typeSeance = TypeSeance.objects.get(type_seance=type_seance,matiere=matiere)
     except TypeSeance.DoesNotExist:
         return Response({'error': 'Nous n\'avons pas trouver le type de séance'}, status=status.HTTP_404_NOT_FOUND)
 
