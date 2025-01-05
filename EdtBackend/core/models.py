@@ -31,11 +31,7 @@ class Matiere(models.Model):
     filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE)
 
 class TypeSeance(models.Model):
-    type_seance = models.CharField(
-        max_length=50,
-        choices=[(tag.name, tag.value) for tag in Type],
-        unique=True
-    )
+    type_seance = models.CharField(max_length=50, choices=[(tag.name, tag.value) for tag in Type])
     volume_horaire_total = models.IntegerField()
     volume_horaire_semaine = models.IntegerField()
     categorie = models.ForeignKey(Categorie,null=True, on_delete=models.SET_NULL)

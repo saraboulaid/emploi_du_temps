@@ -3,15 +3,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import *
 from .serializers import *
+from userauth.decorators import is_authenticated
 
 #_________________________________________________________FILIERE_____________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_filieres(request):
     filieres = Filiere.objects.all()
     serializer = FiliereSerializer(filieres, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_filiere(request):
     serializer = FiliereSerializer(data=request.data)
     if serializer.is_valid():
@@ -20,6 +23,7 @@ def create_filiere(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_filiere_by_id(request, pk):
     try:
         filiere = Filiere.objects.get(pk=pk)
@@ -29,6 +33,7 @@ def get_filiere_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_filiere(request, pk):
     try:
         filiere = Filiere.objects.get(pk=pk)
@@ -41,6 +46,7 @@ def update_filiere(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_filiere(request, pk):
     try:
         filiere = Filiere.objects.get(pk=pk)
@@ -52,12 +58,14 @@ def delete_filiere(request, pk):
 
 #_________________________________________________________CATEGORIE_____________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_categories(request):
     categories = Categorie.objects.all()
     serializer = CategorieSerializer(categories, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_categorie(request):
     serializer = CategorieSerializer(data=request.data)
     if serializer.is_valid():
@@ -66,6 +74,7 @@ def create_categorie(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_categorie_by_id(request, pk):
     try:
         categorie = Categorie.objects.get(pk=pk)
@@ -75,6 +84,7 @@ def get_categorie_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_categorie(request, pk):
     try:
         categorie = Categorie.objects.get(pk=pk)
@@ -87,6 +97,7 @@ def update_categorie(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_categorie(request, pk):
     try:
         categorie = Categorie.objects.get(pk=pk)
@@ -98,12 +109,14 @@ def delete_categorie(request, pk):
 
 #_________________________________________________________Matiere________________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_matieres(request):
     matieres = Matiere.objects.all()
     serializer = MatiereSerializer(matieres, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_matiere(request):
     serializer = MatiereSerializer(data=request.data)
     if serializer.is_valid():
@@ -115,6 +128,7 @@ def create_matiere(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_matiere_by_id(request, pk):
     try:
         matiere = Matiere.objects.get(pk=pk)
@@ -124,6 +138,7 @@ def get_matiere_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_matiere(request, pk):
     try:
         matiere = Matiere.objects.get(pk=pk)
@@ -140,6 +155,7 @@ def update_matiere(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_matiere(request, pk):
     try:
         matiere = Matiere.objects.get(pk=pk)
@@ -151,12 +167,14 @@ def delete_matiere(request, pk):
 
 #_________________________________________________________TypeSeance_____________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_typeSeances(request):
     typeSeances = TypeSeance.objects.all()
     serializer = TypeSeanceSerializer(typeSeances, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_typeSeance(request):
     serializer = TypeSeanceSerializer(data=request.data)
     if serializer.is_valid():
@@ -165,6 +183,7 @@ def create_typeSeance(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_typeSeance_by_id(request, pk):
     try:
         typeSeance = TypeSeance.objects.get(pk=pk)
@@ -174,6 +193,7 @@ def get_typeSeance_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_typeSeance(request, pk):
     try:
         typeSeance = TypeSeance.objects.get(pk=pk)
@@ -186,6 +206,7 @@ def update_typeSeance(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_typeSeance(request, pk):
     try:
         typeSeance = TypeSeance.objects.get(pk=pk)
@@ -197,12 +218,14 @@ def delete_typeSeance(request, pk):
 
 #_________________________________________________________PROF___________________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_profs(request):
     profs = Prof.objects.all()
     serializer = ProfSerializer(profs, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_prof(request):
     serializer = ProfSerializer(data=request.data)
     if serializer.is_valid():
@@ -211,6 +234,7 @@ def create_prof(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_prof_by_id(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)
@@ -220,6 +244,7 @@ def get_prof_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_prof(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)
@@ -232,6 +257,7 @@ def update_prof(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_prof(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)
@@ -243,6 +269,7 @@ def delete_prof(request, pk):
 
 #_________________________________________________________Prof_TypeSeance_________________________________________________________
 @api_view(['GET'])
+@is_authenticated
 def get_prof_typeSeances(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)
@@ -257,6 +284,7 @@ def get_prof_typeSeances(request, pk):
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def assign_prof(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)
@@ -286,6 +314,7 @@ def assign_prof(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def detach_prof(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)
@@ -306,12 +335,14 @@ def detach_prof(request, pk):
 
 #_________________________________________________________Duration________________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_durations(request):
     durations = Duration.objects.all()
     serializer = DurationSerializer(durations, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_duration(request):
     serializer = DurationSerializer(data=request.data)
     if serializer.is_valid():
@@ -320,6 +351,7 @@ def create_duration(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_duration_by_id(request, pk):
     try:
         duration = Duration.objects.get(pk=pk)
@@ -329,6 +361,7 @@ def get_duration_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_duration(request, pk):
     try:
         duration = Duration.objects.get(pk=pk)
@@ -341,6 +374,7 @@ def update_duration(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_duration(request, pk):
     try:
         duration = Duration.objects.get(pk=pk)
@@ -352,12 +386,14 @@ def delete_duration(request, pk):
 
 #_________________________________________________________Salle___________________________________________________________________
 @api_view(['Get'])
+@is_authenticated
 def get_salles(request):
     salles = Salle.objects.all()
     serializer = SalleSerialiser(salles, many = True)
     return Response(serializer.data)
 
 @api_view(['POST'])
+@is_authenticated
 def create_salle(request):
     serializer = SalleSerialiser(data=request.data)
     if serializer.is_valid():
@@ -366,6 +402,7 @@ def create_salle(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+@is_authenticated
 def get_salle_by_id(request, pk):
     try:
         salle = Salle.objects.get(pk=pk)
@@ -375,6 +412,7 @@ def get_salle_by_id(request, pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
+@is_authenticated
 def update_salle(request, pk):
     try:
         salle = Salle.objects.get(pk=pk)
@@ -387,6 +425,7 @@ def update_salle(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
+@is_authenticated
 def delete_salle(request, pk):
     try:
         salle = Salle.objects.get(pk=pk)
