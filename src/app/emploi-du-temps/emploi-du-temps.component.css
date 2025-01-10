@@ -1,0 +1,256 @@
+.search-field {
+  width: 100%;
+  max-width: 300px;
+  background-color: #f9f9f9; /* Arrière-plan pour remplacer l'apparence de la bordure */
+  border-radius: 15px; /* Coins arrondis */
+  height: 36px; /* Réduction de la hauteur */
+  border: none; /* Supprime complètement la bordure */
+  box-shadow: none; /* Supprime les ombres éventuelles */
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  display: none; /* Masque complètement la bordure Angular Material */
+}
+
+.mat-icon {
+  color: #aaa;
+  font-size: 16px;
+}
+
+.mat-input-element {
+  font-size: 14px;
+  padding: 0 8px;
+  background-color: transparent; /* Empêche les couleurs superposées */
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-width: 1px; /* Bordure plus fine */
+}
+
+.mat-icon {
+  color: #aaa;
+  font-size: 16px; /* Icône plus petite */
+}
+
+.mat-input-element {
+  font-size: 14px; /* Texte plus petit */
+  padding: 0; /* Suppression des marges inutiles */
+  line-height: 1.5;
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Aligne le bouton à droite */
+}
+
+button {
+  display: flex;
+  align-items: center; /* Centrer l'icône et le texte verticalement */
+  justify-content: center;
+}
+
+
+/* Container principal */
+
+.table-container {
+  font-family: 'Arial', sans-serif;
+  margin: 20px auto;
+  max-width: 900px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #ffffff; /* Fond blanc pour le conteneur */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #1e293b; /* Texte par défaut */
+}
+
+.table-container h1 {
+  text-align: center;
+  font-size: 1.2em;
+  color: #1e293b; /* Titre en bleu-gris */
+  margin-bottom: 20px;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background-color: #1e293b; /* Bleu-gris foncé pour l'en-tête */
+  color: #ffffff; /* Texte blanc */
+  padding: 12px 10px;
+  text-align: left;
+  font-size: 1em;
+}
+
+tbody td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd; /* Lignes discrètes */
+  text-align: left;
+  font-size: 0.75em;
+  color: #1e293b; /* Texte bleu-gris foncé */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Lignes alternées */
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1; /* Surbrillance au survol */
+}
+
+.action-icons .icon {
+  font-size: 19px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.action-icons .icon:hover {
+  transform: scale(1.1);
+}
+
+.action-icons .eye {
+  color: orange;
+}
+
+.action-icons .edit {
+  color: green;
+}
+
+.action-icons .delete {
+  color: red;
+}
+
+.action-icons .download {
+  color: purple;
+}
+
+
+/* Corps du tableau */
+tbody td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+   /* Taille standard pour le texte */
+  color: #1e293b;
+}
+
+/* Modale */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Couleur d'arrière-plan */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: #ffffff; /* Fond blanc */
+  width: 80%;
+  max-width: 600px;
+  height: 500px ;
+  border-radius: 10px;
+  overflow: hidden;
+  animation: slideIn 0.3s ease-out;
+  color: #1e293b;
+  text-align: center;/* Texte bleu-gris */
+}
+
+.modal-header h2 {
+  font-size: 1.5em;
+  margin: 0;
+  padding: 15px;
+  background-color: #1e293b; /* Fond bleu-gris foncé */
+  color: #ffffff; /* Texte blanc */
+  text-align: center;
+}
+
+.modal-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.close-btn {
+  font-size: 1.5em;
+  color: #1e293b;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #38bdf8; /* Bleu clair */
+}
+
+.close-btn2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 50%;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.close-btn2:hover {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.close-btn2:focus {
+  outline: none;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.schedule-box {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.schedule-box-content {
+  background: white;
+  padding: 50px;
+  border-radius: 8px;
+  width:500px;
+  position: relative; /* Assurez-vous que le bouton de fermeture est positionné correctement */
+}
+
+
