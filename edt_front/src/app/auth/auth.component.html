@@ -1,0 +1,144 @@
+<div
+  class="bg-gray-100 font-dmSans flex font-semibold justify-center items-center h-screen"
+>
+  <article
+    class="bg-white p-10 py-16 rounded-xl shadow-2xl grid grid-cols-[300px_300px] min-w-[800px] justify-between relative overflow-hidden"
+  >
+    <!-- Black Block -->
+    <div
+      [ngClass]="{
+        'rotate-[57deg] left-[15%]': isLoginMode,
+        'rotate-[-57deg] left-[-115%]': !isLoginMode
+      }"
+      class="absolute bottom-0 bg-blue-900 w-[200%] h-[200%] transition-all duration-[1s]"
+    ></div>
+
+    <!-- Login Form -->
+    <form
+      *ngIf="isLoginMode"
+      class="grid gap-10 relative z-10 row-start-1 col-start-1"
+    >
+      <h2
+        class="text-2xl font-bold after:block after:w-10 after:h-1 after:bg-blue-900 after:rounded-full after:mx-auto after:mt-1 text-center mb-2"
+      >
+        Login
+      </h2>
+      <fieldset class="relative border-b-2 border-black pb-2 flex items-center">
+        <input
+          class="outline-none peer flex-1 bg-transparent"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+        />
+        <label
+          class="absolute left-0 peer-focus:-translate-y-6 peer-focus:text-blue-900/80 transition-all"
+          for="email"
+          >Email</label
+        >
+        <i class="bx bxs-user"></i>
+      </fieldset>
+      <fieldset class="relative border-b-2 border-black pb-2 flex items-center">
+        <input
+          class="outline-none peer flex-1 bg-transparent"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+        />
+        <label
+          class="absolute left-0 peer-focus:-translate-y-6 peer-focus:text-sky-900/80 transition-all"
+          for="password"
+          >Password</label
+        >
+        <i class="bx bxs-lock-alt"></i>
+      </fieldset>
+      <button
+        class="bg-blue-900 rounded-full text-white py-2 hover:scale-105 transition-transform"
+        (click)="onLogin()"
+      >
+        Login
+      </button>
+      <span>
+        Don't have an account?
+        <button type="button" class="font-bold" (click)="switchToSignUp()">
+          Sign Up
+        </button>
+      </span>
+    </form>
+
+    <!-- Right Text -->
+    <div
+      *ngIf="isLoginMode"
+      class="text-end max-w-[250px] ml-auto flex flex-col justify-center gap-4 text-white relative z-10 row-start-1 col-start-2 rightText"
+    >
+      <h3 class="text-4xl uppercase font-bold">Bienvenue à l'ENSAT !</h3>
+      <p class="max-w-[200px] ml-auto">
+        Générez vos emplois du temps. Simplifiez la gestion des cours, salles et
+        disponibilités.
+      </p>
+    </div>
+
+    <!-- Sign Up Form -->
+    <form
+      *ngIf="!isLoginMode"
+      class="grid gap-10 relative z-10 row-start-1 col-start-2"
+    >
+      <h2
+        class="text-2xl font-bold after:block after:w-10 after:h-1 after:bg-blue-900 after:rounded-full after:mx-auto after:mt-1 text-center mb-2"
+      >
+        Sign Up
+      </h2>
+      <fieldset class="relative border-b-2 border-black pb-2 flex items-center">
+        <input
+          class="outline-none peer flex-1 bg-transparent"
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+        />
+        <label
+          class="absolute left-0 peer-focus:-translate-y-6 peer-focus:text-blue-900/80 transition-all"
+          for="email"
+          >Email</label
+        >
+        <i class="bx bxs-user"></i>
+      </fieldset>
+      <fieldset class="relative border-b-2 border-black pb-2 flex items-center">
+        <input
+          class="outline-none peer flex-1 bg-transparent"
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+        />
+        <label
+          class="absolute left-0 peer-focus:-translate-y-6 peer-focus:text-blue-900/80 transition-all"
+          for="password"
+          >Password</label
+        >
+        <i class="bx bxs-lock-alt"></i>
+      </fieldset>
+      <button
+        class="bg-blue-900 rounded-full text-white py-2 hover:scale-105 transition-transform"
+        (click)="onSignUp()"
+      >
+        Sign Up
+      </button>
+      <span>
+        Already have an account?
+        <button type="button" class="font-bold" (click)="switchToLogin()">
+          Login
+        </button>
+      </span>
+    </form>
+
+    <!-- Left Text -->
+    <div
+      *ngIf="!isLoginMode"
+      class="text-start max-w-[250px] mr-auto flex flex-col justify-center gap-4 text-white relative z-10 row-start-1 col-start-1 leftText"
+    >
+      <h3 class="text-4xl uppercase font-bold">Bienvenue à l'ENSAT !</h3>
+      <p class="max-w-[200px] mr-auto">
+        Générez vos emplois du temps. Simplifiez la gestion des cours, salles et
+        disponibilités.
+      </p>
+    </div>
+  </article>
+</div>

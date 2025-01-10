@@ -1,0 +1,9 @@
+<div class="app-container">
+  <!-- Intégration de la barre latérale -->
+  <app-sidebar *ngIf="showSidebar"></app-sidebar>
+
+  <!-- Contenu principal -->
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
