@@ -15,7 +15,11 @@ export class CrudTableComponent implements OnInit {
   isCreateFormHidden = true;
   isFilterDropdownHidden = true;
   isCrudActivatedHidden = true;
-
+  tableProfs = [
+    { Nom: 'Ali', Prenom: 'Bouzid' },
+    { Nom: 'Sara', Prenom: 'Boulaid' },
+    { Nom: 'hicham', Prenom: 'Boulaid' },
+  ];
   toggleDropdown() {
     this.isDropdownHidden = !this.isDropdownHidden;
   }
@@ -43,8 +47,8 @@ export class CrudTableComponent implements OnInit {
         case 'Profs':
           this.tableColumns = ['Nom', 'Prénom'];
           this.tableData = [
-            { Nom: 'Ali', Prénom: 'Bouzid' },
-            { Nom: 'Sara', Prénom: 'Boulaid' },
+            { Nom: 'Ali', Prenom: 'Bouzid' },
+            { Nom: 'Sara', Prenom: 'Boulaid' },
           ];
           break;
         case 'Filiere':

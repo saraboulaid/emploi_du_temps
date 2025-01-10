@@ -465,7 +465,26 @@
       <div id="createProductModal" class="modal">
         <form action="#">
           <div class="grid gap-4 mb-4 sm:grid-cols-2">
-            <div>
+                <div class="sm:col-span-2">
+              <label
+                for="category"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Responsable filière</label
+              ><select
+                id="category"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              >
+                <option selected="" disabled>Sélectionnez un professeur</option>
+                <option
+                  *ngFor="let prof of tableProfs"
+                  [value]="prof.Nom + ' ' + prof.Prenom"
+                >
+                  {{ prof.Nom }} {{ prof.Prenom }}
+                </option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
               <label
                 for="name"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -476,12 +495,12 @@
                 name="name"
                 id="name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                placeholder="Type product name"
+                placeholder="Type field name"
                 required=""
               />
             </div>
-
-            <div>
+        
+            <!-- <div>
               <label
                 for="price"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -495,23 +514,9 @@
                 placeholder="$2999"
                 required=""
               />
-            </div>
-            <div>
-              <label
-                for="category"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Category</label
-              ><select
-                id="category"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              >
-                <option selected="">Select category</option>
-                <option value="TV">TV/Monitors</option>
+            </div> -->
 
-                <option value="PH">Phones</option>
-              </select>
-            </div>
-            <div class="sm:col-span-2">
+            <!-- <div class="sm:col-span-2">
               <label
                 for="description"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -522,7 +527,7 @@
                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="Write product description here"
               ></textarea>
-            </div>
+            </div> -->
           </div>
           <button
             type="submit"
@@ -594,7 +599,7 @@
             <label
               for="name"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Name</label
+              >Nom</label
             >
             <input
               type="text"
@@ -609,7 +614,7 @@
             <label
               for="brand"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Brand</label
+              >Responsable</label
             >
             <input
               type="text"
