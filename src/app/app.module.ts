@@ -16,12 +16,14 @@ import { EmploiDuTempsComponent } from './emploi-du-temps/emploi-du-temps.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 
-import { ReactiveFormsModule } from '@angular/forms'; // Importer ce module
+import { ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from "@angular/common/http";
+
 @NgModule({
   declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent],
   imports: [BrowserModule,MatSelectModule ,MatButtonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule,],
   providers: [],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Ajouter cette ligne
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

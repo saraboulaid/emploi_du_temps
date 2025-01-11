@@ -1,0 +1,20 @@
+<div class="form-container">
+  <h2>Ajouter une Filière</h2>
+
+
+  <form>
+    <div class="form-group">
+      <label for="nom">Nom de la Filière:</label>
+      <input type="text" id="nom" name="nom" [(ngModel)]="filiere.nom" required class="form-control"/>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="btn-submit" (click)="submitForm()">Ajouter</button>
+    </div>
+  </form>
+
+  <div *ngIf="response">
+    <h3>Réponse de l'API:</h3>
+    <pre>{{ response | json }}</pre>
+  </div>
+</div>

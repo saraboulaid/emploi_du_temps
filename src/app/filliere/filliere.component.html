@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="header">
+    <h1>Liste des Filières</h1>
+    <button class="btn-add" (click)="navigateToForm('form')">
+      <i class="plus-icon">+</i>
+      Ajouter
+    </button>
+  </div>
+
+  <table class="data-table">
+    <thead>
+    <tr>
+      <th>Nom Filière</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Informatique</td>
+      <td class="actions">
+        <button class="btn-action btn-edit">
+          <i class="edit-icon">✎</i>
+        </button>
+        <button class="btn-action btn-delete">
+          <i class="delete-icon">×</i>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Électronique</td>
+      <td class="actions">
+        <button class="btn-action btn-edit">
+          <i class="edit-icon">✎</i>
+        </button>
+        <button class="btn-action btn-delete">
+          <i class="delete-icon">×</i>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>Mécanique</td>
+      <td class="actions">
+        <button class="btn-action btn-edit">
+          <i class="edit-icon">✎</i>
+        </button>
+        <button class="btn-action btn-delete">
+          <i class="delete-icon">×</i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <router-outlet></router-outlet>
+</div>
