@@ -15,12 +15,6 @@ export class CrudTableComponent implements OnInit {
   isFilterDropdownHidden = true;
   isCrudActivatedHidden = true;
 
-  tableProfs = [
-    { Nom: 'Ali', Prenom: 'Bouzid' },
-    { Nom: 'Sara', Prenom: 'Boulaid' },
-    { Nom: 'Hicham', Prenom: 'Boulaid' },
-  ];
-
   fieldTypes: {
     [key: string]: {
       type: 'input' | 'select';
@@ -33,6 +27,17 @@ export class CrudTableComponent implements OnInit {
     switch (column) {
       case 'Jour':
         return ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi'];
+      case 'Mi-Semestre':
+        return ['S1', 'S2', 'S3', 'S4'];
+      case 'Responsable':
+        if (this.name === 'Profs') {
+          return this.tableData.map((prof) => prof.Nom + ' ' + prof.Prenom);
+        }
+        return ['Responsable 1', 'Responsable 2'];
+      case 'Type Séance':
+        return ['Equip IT', 'Equip Indus', 'Equip Energetique'];
+      case 'Matière':
+        return ['Informatique', 'Mathématiques', 'Physique'];
       case 'Classification':
         return ['IT', 'Indus', 'Robotique'];
       default:
@@ -65,12 +70,11 @@ export class CrudTableComponent implements OnInit {
       // Définir les colonnes, les données et les types de champs selon le paramètre "name"
       switch (this.name) {
         case 'Profs':
-          this.tableColumns = ['Nom', 'Prénom', 'Actions'];
+          this.tableColumns = ['ID', 'Nom', 'Prénom', 'Actions'];
           this.tableData = [
-            { Nom: 'Ali', Prenom: 'Bouzid' },
-            { Nom: 'Sara', Prenom: 'Boulaid' },
-            { Nom: 'Sara', Prenom: 'Boulaid' },
-            { Nom: 'Sara', Prenom: 'Boulaid' },
+            { id: 1, Nom: 'Ali', Prenom: 'Bouzid' },
+            { id: 2, Nom: 'Sara', Prenom: 'Boulaid' },
+            { id: 3, Nom: 'Hicham', Prenom: 'Boulaid' },
           ];
           this.fieldTypes = {
             Nom: { type: 'input', inputType: 'text' },
@@ -79,13 +83,15 @@ export class CrudTableComponent implements OnInit {
           break;
 
         case 'Matieres':
-          this.tableColumns = ['Nom', 'Mi-Semestre', 'Actions'];
+          this.tableColumns = ['ID', 'Nom', 'Mi-Semestre', 'Actions'];
           this.tableData = [
             {
+              id: 1,
               Nom: 'Mathématiques',
               'Mi-Semestre': 'S1',
             },
             {
+              id: 2,
               Nom: 'Informatique',
               'Mi-Semestre': 'S2',
             },
@@ -97,10 +103,16 @@ export class CrudTableComponent implements OnInit {
           break;
 
         case 'Salles':
-          this.tableColumns = ['Nom', 'Effectif', 'Classification', 'Actions'];
+          this.tableColumns = [
+            'ID',
+            'Nom',
+            'Effectif',
+            'Classification',
+            'Actions',
+          ];
           this.tableData = [
-            { Nom: 'Salle A', Effectif: 30, Classification: 'IT' },
-            { Nom: 'Salle B', Effectif: 20, Classification: 'Indus' },
+            { id: 1, Nom: 'Salle A', Effectif: 30, Classification: 'IT' },
+            { id: 2, Nom: 'Salle B', Effectif: 20, Classification: 'Indus' },
           ];
           this.fieldTypes = {
             Nom: { type: 'input', inputType: 'text' },
@@ -111,6 +123,7 @@ export class CrudTableComponent implements OnInit {
 
         case 'Duration':
           this.tableColumns = [
+            'ID',
             'Jour',
             'Horaire de début',
             'Horaire de fin',
@@ -118,11 +131,13 @@ export class CrudTableComponent implements OnInit {
           ];
           this.tableData = [
             {
+              id: 1,
               Jour: 'Lundi',
               'Horaire de début': '08:00',
               'Horaire de fin': '10:00',
             },
             {
+              id: 2,
               Jour: 'Mardi',
               'Horaire de début': '10:00',
               'Horaire de fin': '12:00',
@@ -137,6 +152,7 @@ export class CrudTableComponent implements OnInit {
 
         case 'Type Séance':
           this.tableColumns = [
+            'ID',
             'Type Séance',
             'Volume horaire total',
             'Volume horaire par semaine',
@@ -146,6 +162,7 @@ export class CrudTableComponent implements OnInit {
           ];
           this.tableData = [
             {
+              id: 1,
               'Type Séance': 'TP',
               'Volume horaire total': 33,
               'Volume horaire par semaine': 12,
@@ -153,6 +170,7 @@ export class CrudTableComponent implements OnInit {
               Matière: 'C++',
             },
             {
+              id: 2,
               'Type Séance': 'TD',
               'Volume horaire total': 44,
               'Volume horaire par semaine': 10,
@@ -162,7 +180,6 @@ export class CrudTableComponent implements OnInit {
           ];
           this.fieldTypes = {
             'Type Séance': { type: 'select' },
-            'Mi-Semestre': { type: 'select' },
             'Volume horaire total': { type: 'input', inputType: 'number' },
             'Volume horaire par semaine': {
               type: 'input',
@@ -174,9 +191,9 @@ export class CrudTableComponent implements OnInit {
           break;
 
         case 'Filiere':
-          this.tableColumns = ['Nom Filiere', 'Responsable', 'Actions'];
+          this.tableColumns = ['ID', 'Nom Filiere', 'Responsable', 'Actions'];
           this.tableData = [
-            { 'Nom Filiere': 'Informatique', Responsable: 'M. Karim' },
+            { id: 1, 'Nom Filiere': 'Informatique', Responsable: 'M. Karim' },
           ];
           this.fieldTypes = {
             'Nom Filiere': { type: 'input', inputType: 'text' },
@@ -196,5 +213,8 @@ export class CrudTableComponent implements OnInit {
 
   getObjectKeys(obj: any): string[] {
     return Object.keys(obj);
+  }
+  filterKeys(data: any): string[] {
+    return this.getObjectKeys(data).filter((key) => key.toLowerCase() !== 'id');
   }
 }
