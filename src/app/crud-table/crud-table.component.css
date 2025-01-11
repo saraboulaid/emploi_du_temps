@@ -1,3 +1,18 @@
-.hidden {
-  display: none;
+.action-icons {
+  display: flex; /* Organisation en ligne des icônes */
+  justify-content: flex-start; /* Alignement à gauche */
+  align-items: center; /* Alignement vertical au centre */
+  gap: 10px; /* Espacement horizontal entre les icônes */
+  height: 100%; /* S'adapte à la hauteur de la cellule */
+}
+
+.action-icons ion-icon {
+  font-size: 20px; /* Taille uniforme des icônes */
+  line-height: 1; /* Assure un bon alignement vertical */
+  vertical-align: middle; /* Centre l'icône verticalement */
+  transition: transform 0.2s ease, color 0.2s ease; /* Animation au survol */
+}
+
+.action-icons ion-icon:hover {
+  transform: scale(1.3); /* Zoom léger au survol */
 }

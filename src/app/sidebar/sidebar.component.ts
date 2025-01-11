@@ -29,9 +29,18 @@ export class SidebarComponent {
     { name: 'Filiere', route: '/crud-table/Filiere', icon: 'school-outline' },
     { name: 'Profs', route: '/crud-table/Profs', icon: 'person-outline' },
     { name: 'Matieres', route: '/crud-table/Matieres', icon: 'book-outline' },
+    {
+      name: 'Type Séance',
+      route: '/crud-table/Type Séance',
+      icon: 'construct-outline',
+    },
     { name: 'Salles', route: '/crud-table/Salles', icon: 'grid-outline' },
     { name: 'Duration', route: '/crud-table/Duration', icon: 'time-outline' },
-    { name: 'Emploi du Temps', route: '/emploi-du-temps', icon: 'calendar-outline' }
+    {
+      name: 'Emploi du Temps',
+      route: '/emploi-du-temps',
+      icon: 'calendar-outline',
+    },
   ];
 
   activeItem = this.menuItems[0]; // Élément actif par défaut
