@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
   providedIn: 'root'
 })
 export class FiliereService {
-  private apiUrl = 'http://127.0.0.1:8000/api/filieres';
+  private apiUrl = 'http://localhost:8000/api/filieres/';
 
   constructor(private http: HttpClient ) {}
 

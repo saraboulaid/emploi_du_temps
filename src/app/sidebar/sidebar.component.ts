@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-
+import { AuthService } from '../auth.service'; // Assure-toi que le chemin est correct
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -41,12 +42,29 @@ export class SidebarComponent {
       route: '/emploi-du-temps',
       icon: 'calendar-outline',
     },
+    {
+      name: 'Déconnexion',
+      route: '/',
+      icon: 'log-out-outline',
+      action: () => this.logout(), // Appel de la méthode logout lors du clic
+    },
   ];
+authenticated: boolean = false;
+  activeItem = this.menuItems[0];
+  constructor(private authService: AuthService, private router: Router) {}// Élément actif par défaut
+  logout() {
+    this.authService.logout();
+    this.authenticated = false;
+    this.router.navigate(['/']);
 
-  activeItem = this.menuItems[0]; // Élément actif par défaut
-
+   // Appel du service pour se déconnecter
+  }
   setActiveItem(item: any) {
     // Active l'élément cliqué
     this.activeItem = item;
+  }
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+
   }
 }

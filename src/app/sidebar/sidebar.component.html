@@ -15,10 +15,11 @@
       [class.active]="item === activeItem"
       (click)="setActiveItem(item)"
     >
-      <a [routerLink]="item.route" routerLinkActive="active">
+    <a *ngIf="item.name !== 'Déconnexion' || isAuthenticated()" [routerLink]="item.route" (click)="setActiveItem(item)">
         <ion-icon [name]="item.icon" class="nav__icon"></ion-icon>
         {{ item.name }}
       </a>
+      
     </li>
   </ul>
 </div>

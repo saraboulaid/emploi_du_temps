@@ -24,12 +24,18 @@ import { SallesComponent } from './salles/salles.component';
 import { DurationComponent } from './duration/duration.component';
 import { TypeSeanceComponent } from './type-seance/type-seance.component';
 import { FiliereFormComponent } from './filiere-form/filiere-form.component';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 @NgModule({
   declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent, MatieresComponent, ProfsComponent, SallesComponent, DurationComponent, TypeSeanceComponent],
   imports: [BrowserModule,MatSelectModule ,MatButtonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule, HttpClientModule ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,  // Enregistrer l'intercepteur ici
+      multi: true                // Permet d'ajouter plusieurs intercepteurs
+    }
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })

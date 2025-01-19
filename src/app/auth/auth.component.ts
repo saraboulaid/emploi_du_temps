@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth.service';  // Assurez-vous d'importer le service d'authentification
 
 @Component({
   selector: 'app-auth',
@@ -6,29 +7,75 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent {
-  isLoginMode: boolean = true; // Définit le mode initial
   email: string = '';
   password: string = '';
+  errorMessage: string | null = null;
+  successMessage: string | null = null;
+  isLoginMode: boolean = true;
 
-  // Bascule vers SignUp
+  constructor(private authService: AuthService) {}
+
+  onLogin() {
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        // Gérer la réponse de succès
+        console.log('Connexion réussie', response);
+
+        // Sauvegarder le token
+        this.authService.saveToken(response.token);
+
+        // Afficher le token dans la console (ou ailleurs dans ton application)
+        console.log('Token:', response.token);
+        this.successMessage = 'Connexion réussie !'; // Message de succès
+        this.clearMessagesAfterDelay();
+
+
+        // Naviguer vers la page suivante
+        this.authService.router.navigate(['/filiere']);
+      },
+      error: (error) => {
+        // Gérer l'erreur
+        this.errorMessage = 'Erreur de connexion: ' + (error.error.message || error.statusText);
+      },
+    });
+  }
+
+
+  onSignUp() {
+    this.authService.register(this.email, this.password).subscribe({
+      next: (response) => {
+        // Gérer la réponse de succès
+        console.log('Inscription réussie', response);
+        this.successMessage = 'Inscription réussie !'; // Message de succès
+        this.clearMessagesAfterDelay();
+       this.switchToLogin();
+      },
+      error: (error) => {
+        this.errorMessage = 'Erreur d\'inscription: ' + (error.error.message || error.statusText);
+      },
+    });
+  }
+  clearSuccessMessage() {
+    this.successMessage = null;
+  }
+
+  clearErrorMessage() {
+    this.errorMessage = null;
+  }
+
   switchToSignUp() {
     this.isLoginMode = false;
+    this.errorMessage = null; // Réinitialiser l'erreur à chaque fois qu'on change de mode
   }
 
-  // Bascule vers Login
   switchToLogin() {
     this.isLoginMode = true;
+    this.errorMessage = null; // Réinitialiser l'erreur à chaque fois qu'on change de mode
   }
-
-  // Fonction pour gérer la connexion
-  onLogin() {
-    console.log('Logging in with:', this.email, this.password);
-    // Ajouter votre logique ici
-  }
-
-  // Fonction pour gérer l'inscription
-  onSignUp() {
-    console.log('Signing up with:', this.email, this.password);
-    // Ajouter votre logique ici
+  clearMessagesAfterDelay() {
+    setTimeout(() => {
+      this.successMessage = null;
+      this.errorMessage = null;
+    }, 3000); // 3 secondes
   }
 }
