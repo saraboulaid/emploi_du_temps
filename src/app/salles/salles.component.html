@@ -1,1 +1,37 @@
-<p>salles works!</p>
+<div class="container">
+  <div class="header">
+    <h1>Liste des Salles</h1>
+    <button class="btn-add" (click)="navigateToForm('form')">
+      <i class="plus-icon">+</i>
+      Ajouter
+    </button>
+  </div>
+
+  <table class="data-table" *ngIf="salles.length > 0; else noData">
+    <thead>
+    <tr>
+      <th>Nom de la Salle</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let salle of salles">
+      <td>{{ salle.nom }}</td>
+      <td class="actions">
+        <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + salle.id)">
+          <i class="edit-icon">✎</i>
+        </button>
+        <button class="btn-action btn-delete" (click)="deleteSalle(salle.id)">
+          <i class="delete-icon">×</i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <div class="no-data">
+      <p>Aucune salle trouvée.</p>
+    </div>
+  </ng-template>
+</div>

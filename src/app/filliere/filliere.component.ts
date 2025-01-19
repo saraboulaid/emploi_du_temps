@@ -16,7 +16,7 @@ export class FilliereComponent implements OnInit {
   error: any | string = " ";
 
   constructor( private router: Router, private filiereService: FiliereService) {}  // Injection du Router
- 
+
 
   ngOnInit(): void {
     this.filiereService.getFilieres().subscribe(
@@ -30,7 +30,7 @@ export class FilliereComponent implements OnInit {
   }
 
   navigateToForm(route: string) {
-    const url = `/dashbord/filiere/${route}`;
+    const url = `/filiere/${route}`;
     console.log('Navigating to: ', url);
     this.router.navigate([url]);
   }

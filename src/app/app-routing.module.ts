@@ -10,10 +10,14 @@ import { MatieresComponent } from './matieres/matieres.component';
 import { TypeSeanceComponent } from './type-seance/type-seance.component';
 import { SallesComponent } from './salles/salles.component';
 import { DurationComponent } from './duration/duration.component';
+import {FiliereFormComponent} from "./filiere-form/filiere-form.component";
 
 const routes: Routes = [
 
   { path: 'filiere', component: FilliereComponent },
+  { path: 'filiere/form', component: FiliereFormComponent },
+
+  { path: 'filiere/edit/:id', component: FiliereFormComponent },
   { path: 'profs', component: ProfsComponent},
   { path: 'matieres', component: MatieresComponent },
   { path: 'type_seance', component: TypeSeanceComponent },
