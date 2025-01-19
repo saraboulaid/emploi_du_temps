@@ -1,0 +1,34 @@
+<div class="salle-form-container">
+  <h3>{{ isEditMode ? 'Modifier la Salle' : 'Ajouter une Salle' }}</h3>
+
+  <form>
+    <div class="form-group">
+      <label for="nomSalle">Nom de la Salle</label>
+      <input
+        id="nomSalle"
+        type="text"
+        [(ngModel)]="nomSalle"
+        placeholder="Entrez le nom de la salle"
+        name="nomSalle"
+      />
+    </div>
+    <div class="form-group">
+      <label for="capaciteSalle">Capacité de la Salle</label>
+      <input
+        id="capaciteSalle"
+        type="number"
+        [(ngModel)]="capaciteSalle"
+        placeholder="Entrez la capacité de la salle"
+        name="capaciteSalle"
+      />
+    </div>
+
+    <button type="button" (click)="onSubmit()">
+      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </form>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+</div>

@@ -25,9 +25,14 @@ import { DurationComponent } from './duration/duration.component';
 import { TypeSeanceComponent } from './type-seance/type-seance.component';
 import { FiliereFormComponent } from './filiere-form/filiere-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormProfComponent } from './form-prof/form-prof.component';
+import { FormDurationComponent } from './form-duration/form-duration.component';
+import { FormSalleComponent } from './form-salle/form-salle.component';
+import { FormTypeSceanceComponent } from './form-type-sceance/form-type-sceance.component';
+import { FormMatiereComponent } from './form-matiere/form-matiere.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent, MatieresComponent, ProfsComponent, SallesComponent, DurationComponent, TypeSeanceComponent],
+  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent],
   imports: [BrowserModule,MatSelectModule ,MatButtonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule, HttpClientModule ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

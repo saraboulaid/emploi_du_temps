@@ -1,0 +1,24 @@
+<div class="type-sceance-form-container">
+  <h3>{{ isEditMode ? 'Modifier le Type de Séance' : 'Ajouter un Type de Séance' }}</h3>
+
+  <form>
+    <div class="form-group">
+      <label for="nomTypeSceance">Nom du Type de Séance</label>
+      <input
+        id="nomTypeSceance"
+        type="text"
+        [(ngModel)]="nomTypeSceance"
+        placeholder="Entrez le nom du type de séance"
+        name="nomTypeSceance"
+      />
+    </div>
+
+    <button type="button" (click)="onSubmit()">
+      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </form>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+</div>

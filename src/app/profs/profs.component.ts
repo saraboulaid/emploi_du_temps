@@ -6,6 +6,7 @@ import { ProfService } from '../prof.service'; // Service pour gérer les profes
   selector: 'app-profs',
   templateUrl: './profs.component.html',
   styleUrls: ['./profs.component.css'],
+  standalone: true
 })
 export class ProfsComponent implements OnInit {
   profs: any[] = []; // Liste des professeurs

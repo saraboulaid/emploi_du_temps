@@ -6,6 +6,7 @@ import { SalleService } from '../salle.service'; // Service pour gérer les sall
   selector: 'app-salles',
   templateUrl: './salles.component.html',
   styleUrls: ['./salles.component.css'],
+  standalone: true
 })
 export class SallesComponent implements OnInit {
   salles: any[] = []; // Liste des salles

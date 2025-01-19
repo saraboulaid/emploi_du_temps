@@ -6,6 +6,7 @@ import { MatiereService } from '../matiere.service'; // Service pour gérer les 
   selector: 'app-matieres',
   templateUrl: './matieres.component.html',
   styleUrls: ['./matieres.component.css'],
+  standalone: true
 })
 export class MatieresComponent implements OnInit {
   matieres: any[] = []; // Liste des matières
@@ -26,14 +27,14 @@ export class MatieresComponent implements OnInit {
     );
   }
 
-  // Méthode pour naviguer vers le formulaire (ajout ou modification)
+
   navigateToForm(route: string) {
     const url = `/matieres/${route}`;
     console.log('Navigating to:', url);
     this.router.navigate([url]);
   }
 
-  // Méthode pour supprimer une matière
+
   deleteMatiere(id: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette matière ?')) {
       this.matiereService.deleteMatiere(id).subscribe(

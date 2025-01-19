@@ -6,15 +6,15 @@ import { DurationService } from '../duration.service'; // Service pour gérer le
   selector: 'app-duration',
   templateUrl: './duration.component.html',
   styleUrls: ['./duration.component.css'],
+  standalone: true
 })
 export class DurationComponent implements OnInit {
-  durations: any[] = []; // Liste des durées
-  error: any | string = ''; // Gestion des erreurs
+  durations: any[] = [];
+  error: any | string = '';
 
   constructor(private router: Router, private durationService: DurationService) {}
 
   ngOnInit(): void {
-    // Récupération des données des durées au chargement du composant
     this.durationService.getDurations().subscribe(
       (response) => {
         this.durations = response;
@@ -26,19 +26,17 @@ export class DurationComponent implements OnInit {
     );
   }
 
-  // Méthode pour naviguer vers le formulaire (ajout ou modification)
   navigateToForm(route: string) {
-    const url = `/durations/${route}`;
+    const url = `/duration/${route}`;
     console.log('Navigating to:', url);
     this.router.navigate([url]);
   }
 
-  // Méthode pour supprimer une durée
   deleteDuration(id: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette durée ?')) {
       this.durationService.deleteDuration(id).subscribe(
         () => {
-          this.durations = this.durations.filter((duration) => duration.id !== id); // Mise à jour locale après suppression
+          this.durations = this.durations.filter((duration) => duration.id !== id);
         },
         (error) => {
           console.error('Erreur lors de la suppression de la durée', error);

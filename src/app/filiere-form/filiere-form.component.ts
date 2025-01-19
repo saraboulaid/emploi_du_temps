@@ -1,37 +1,58 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms'; // Importez ici
+import { Component, Input, OnInit } from '@angular/core';
+import { FiliereService } from '../filiere.service';
+import {FormsModule} from "@angular/forms";
+
 @Component({
   selector: 'app-filiere-form',
   templateUrl: './filiere-form.component.html',
   styleUrls: ['./filiere-form.component.css'],
-  standalone: true,
-  imports: [CommonModule, FormsModule,ReactiveFormsModule],
+  imports: [
+    FormsModule
+  ],
+  standalone: true
 })
+export class FiliereFormComponent implements OnInit {
+  @Input() filiere: any = null;
+  nomFiliere: string = '';
+  isEditMode: boolean = false;
+  message: string = '';
 
-export class FiliereFormComponent {
-  @Input() filiere: any = { id: null, nomFiliere: '' };
-  @Output() save = new EventEmitter<any>();
+  constructor(private filiereService: FiliereService) {}
 
-  filiereForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.filiereForm = this.fb.group({
-      id: [null],
-      nomFiliere: ['', Validators.required],
-    });
-  }
-
-  ngOnChanges(): void {
-
-    this.filiereForm.patchValue(this.filiere);
+  ngOnInit(): void {
+    // Si une filière est passée en entrée, on est en mode édition
+    if (this.filiere) {
+      this.isEditMode = true;
+      this.nomFiliere = this.filiere.nomFiliere;
+    }
   }
 
   onSubmit(): void {
-    if (this.filiereForm.valid) {
-      this.save.emit(this.filiereForm.value);
+    if (this.nomFiliere.trim()) {
+      if (this.isEditMode && this.filiere?.id) {
+        // Appel au service pour la modification
+        this.filiereService.updateFiliere(this.filiere.id, { nomFiliere: this.nomFiliere }).subscribe({
+          next: () => {
+            this.message = 'Filière modifiée avec succès.';
+          },
+          error: (err) => {
+            this.message = `Erreur lors de la modification : ${err.message}`;
+          },
+        });
+      } else {
+        // Appel au service pour l'ajout
+        this.filiereService.addFiliere({ nomFiliere: this.nomFiliere }).subscribe({
+          next: () => {
+            this.message = 'Filière ajoutée avec succès.';
+            this.nomFiliere = ''; // Réinitialiser le champ
+          },
+          error: (err) => {
+            this.message = `Erreur lors de l'ajout : ${err.message}`;
+          },
+        });
+      }
+    } else {
+      this.message = 'Le nom de la filière est requis.';
     }
   }
 }

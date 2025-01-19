@@ -1,20 +1,18 @@
 <div class="filiere-form-container">
-  <h3>{{ filiere?.id ? 'Modifier la Filière' : 'Ajouter une Filière' }}</h3>
+  <h3>{{ isEditMode ? 'Modifier la Filière' : 'Ajouter une Filière' }}</h3>
 
-  <form [formGroup]="filiereForm" (ngSubmit)="onSubmit()">
-
+  <form>
     <div class="form-group">
       <label for="nomFiliere">Nom de la Filière</label>
-      <input id="nomFiliere" type="text" formControlName="nomFiliere" placeholder="Entrez le nom de la filière"/>
-      
-      <div *ngIf="filiereForm.get('nomFiliere')?.invalid && filiereForm.get('nomFiliere')?.touched">
-        <small class="error">Le nom de la filière est requis.</small>
-      </div>
+      <input id="nomFiliere" type="text"  [(ngModel)]="nomFiliere" placeholder="Entrez le nom de la filière" name="nomFiliere"/>
     </div>
 
-
-    <button type="submit" [disabled]="filiereForm.invalid">
-      {{ filiere?.id ? 'Modifier' : 'Ajouter' }}
+    <button type="button" (click)="onSubmit()">
+      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
     </button>
   </form>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
 </div>
