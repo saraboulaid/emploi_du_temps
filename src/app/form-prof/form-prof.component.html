@@ -1,0 +1,34 @@
+<div class="prof-form-container">
+  <h3>{{ isEditMode ? 'Modifier le Professeur' : 'Ajouter un Professeur' }}</h3>
+
+  <form>
+    <div class="form-group">
+      <label for="nomProf">Nom du Professeur</label>
+      <input
+        id="nomProf"
+        type="text"
+        [(ngModel)]="nomProf"
+        placeholder="Entrez le nom du professeur"
+        name="nomProf"
+      />
+    </div>
+    <div class="form-group">
+      <label for="prenomProf">Prénom du Professeur</label>
+      <input
+        id="prenomProf"
+        type="text"
+        [(ngModel)]="prenomProf"
+        placeholder="Entrez le prénom du professeur"
+        name="prenomProf"
+      />
+    </div>
+
+    <button type="button" (click)="onSubmit()">
+      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </form>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+</div>

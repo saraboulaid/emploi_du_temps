@@ -1,0 +1,24 @@
+<div class="duration-form-container">
+  <h3>{{ isEditMode ? 'Modifier la Durée' : 'Ajouter une Durée' }}</h3>
+
+  <form>
+    <div class="form-group">
+      <label for="nomDuration">Nom de la Durée</label>
+      <input
+        id="nomDuration"
+        type="text"
+        [(ngModel)]="nomDuration"
+        placeholder="Entrez le nom de la durée"
+        name="nomDuration"
+      />
+    </div>
+
+    <button type="button" (click)="onSubmit()">
+      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </form>
+
+  <div *ngIf="message" class="message">
+    {{ message }}
+  </div>
+</div>

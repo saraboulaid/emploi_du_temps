@@ -10,6 +10,12 @@ import { TypeSeanceComponent } from './type-seance/type-seance.component';
 import { SallesComponent } from './salles/salles.component';
 import { DurationComponent } from './duration/duration.component';
 import { AuthGuard } from './auth.guard';  // Importer le guard
+import {FiliereFormComponent} from "./filiere-form/filiere-form.component";
+import {FormProfComponent} from "./form-prof/form-prof.component";
+import {FormMatiereComponent} from "./form-matiere/form-matiere.component";
+import {FormTypeSceanceComponent} from "./form-type-sceance/form-type-sceance.component";
+import {FormSalleComponent} from "./form-salle/form-salle.component";
+import {FormDurationComponent} from "./form-duration/form-duration.component";
 import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
@@ -21,9 +27,38 @@ const routes: Routes = [
   { path: 'duration', component: DurationComponent, canActivate: [AuthGuard] },
   { path: 'emploi-du-temps', component: EmploiDuTempsComponent, canActivate: [AuthGuard] },
   { path: 'schedule-form', component: ScheduleFormComponent, canActivate: [AuthGuard] },
+
+
+  { path: 'filiere/form', component: FiliereFormComponent , canActivate: [AuthGuard] },
+  { path: 'filiere/edit/:id', component: FiliereFormComponent , canActivate: [AuthGuard] },
+
+
+  { path: 'profs/form', component: FormProfComponent , canActivate: [AuthGuard] },
+  { path: 'profs/edit/:id', component: FormProfComponent , canActivate: [AuthGuard] },
+
+
+  { path: 'matieres/form', component: FormMatiereComponent , canActivate: [AuthGuard] },
+  { path: 'matieres/edit/:id', component: FormMatiereComponent , canActivate: [AuthGuard] },
+
+
+  { path: 'type_seance/form', component: FormTypeSceanceComponent, canActivate: [AuthGuard]  },
+  { path: 'type_seance/edit/:id', component: FormTypeSceanceComponent , canActivate: [AuthGuard] },
+
+
+  { path: 'salles/form', component: FormSalleComponent, canActivate: [AuthGuard]  },
+  { path: 'salles/edit/:id', component: FormSalleComponent, canActivate: [AuthGuard] },
+
+
+  { path: 'duration/form', component: FormDurationComponent, canActivate: [AuthGuard]  },
+  { path: 'duration/edit/:id', component: FormDurationComponent , canActivate: [AuthGuard] },
+
+
+  { path: 'schedule/edit/:id', component: ScheduleFormComponent, canActivate: [AuthGuard]  },
   { path: 'login', component: AuthComponent },  // Ajouter une page de connexion
   { path: '', redirectTo: '/login', pathMatch: 'full' },  // Rediriger vers la page de connexion par défaut
+
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

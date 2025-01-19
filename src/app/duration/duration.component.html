@@ -1,1 +1,37 @@
-<p>duration works!</p>
+<div class="container">
+  <div class="header">
+    <h1>Liste des Durées</h1>
+    <button class="btn-add" (click)="navigateToForm('form')">
+      <i class="plus-icon">+</i>
+      Ajouter
+    </button>
+  </div>
+
+  <table class="data-table" *ngIf="durations.length > 0; else noData">
+    <thead>
+    <tr>
+      <th>Nom Durée</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let duration of durations">
+      <td>{{ duration.nom }}</td>
+      <td class="actions">
+        <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + duration.id)">
+          <i class="edit-icon">✎</i>
+        </button>
+        <button class="btn-action btn-delete" (click)="deleteDuration(duration.id)">
+          <i class="delete-icon">×</i>
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <div class="no-data">
+      <p>Aucune durée trouvée.</p>
+    </div>
+  </ng-template>
+</div>

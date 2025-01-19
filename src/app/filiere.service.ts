@@ -1,33 +1,38 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiliereService {
+
   private apiUrl = 'http://localhost:8000/api/filieres/';
 
   constructor(private http: HttpClient ) {}
 
+  private baseUrl = 'http://localhost:8000/api/filieres';
+
+
+
 
   getFilieres(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.baseUrl}/`);
   }
 
+  getFiliereById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
 
   addFiliere(filiere: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, filiere);
+    return this.http.post<any>(`${this.baseUrl}/create`, filiere);
   }
-
 
   updateFiliere(id: number, filiere: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}${id}/`, filiere);
+    return this.http.put<any>(`${this.baseUrl}/${id}/update`, filiere);
   }
 
-
   deleteFiliere(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}${id}/`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}/delete`);
   }
 }
