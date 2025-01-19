@@ -16,7 +16,7 @@ export class FiliereFormComponent implements OnInit {
   nomFiliere: string = '';
   isEditMode: boolean = false;
   message: string = '';
-
+  id: number| null = null;
   constructor(
     private filiereService: FiliereService,
     private route: ActivatedRoute,
@@ -24,10 +24,10 @@ export class FiliereFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id) {
       this.isEditMode = true;
-      this.loadFiliere(Number(id)); // Charge les détails de la filière
+      this.loadFiliere(Number(this.id)); // Charge les détails de la filière
     }
   }
   loadFiliere(id: number): void {
@@ -44,11 +44,12 @@ export class FiliereFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.nomFiliere.trim()) {
-      if (this.isEditMode && this.filiere?.id) {
+      if (this.isEditMode && this.id) {
         // Appel au service pour la modification
-        this.filiereService.updateFiliere(this.filiere.id, { nomFiliere: this.nomFiliere }).subscribe({
+        this.filiereService.updateFiliere(this.id, { nom: this.nomFiliere }).subscribe({
           next: () => {
             this.message = 'Filière modifiée avec succès.';
+            this.router.navigate(['/filiere']);
           },
           error: (err) => {
             this.message = `Erreur lors de la modification : ${err.message}`;
@@ -59,6 +60,7 @@ export class FiliereFormComponent implements OnInit {
         this.filiereService.addFiliere({ nom: this.nomFiliere }).subscribe({
           next: () => {
             this.message = 'Filière ajoutée avec succès.';
+            this.router.navigate(['filiere']);
             this.nomFiliere = ''; // Réinitialiser le champ
           },
           error: (err) => {

@@ -21,7 +21,7 @@
         <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + filiere.id)">
           <i class="edit-icon">✎</i>
         </button>
-        <button class="btn-action btn-delete" >
+        <button class="btn-action btn-delete" (click)="onDelete(filiere.id)">
           <i class="delete-icon">×</i>
         </button>
       </td>
