@@ -23,6 +23,22 @@
       />
     </div>
 
+    <!-- Liste déroulante des catégories -->
+    <div class="form-group">
+      <label for="categorieSalle">Catégorie de la Salle</label>
+      <select
+        id="categorieSalle"
+        [(ngModel)]="categorieSalle"
+        name="categorieSalle"
+        required
+      >
+        <option value="" disabled selected>Choisissez une catégorie</option>
+        <option *ngFor="let categorie of categories" [value]="categorie.id">
+          {{ categorie.nom }}
+        </option>
+      </select>
+    </div>
+
     <button type="button" (click)="onSubmit()">
       {{ isEditMode ? 'Modifier' : 'Ajouter' }}
     </button>

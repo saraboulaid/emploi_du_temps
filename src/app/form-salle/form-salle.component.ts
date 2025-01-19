@@ -15,6 +15,12 @@ export class FormSalleComponent implements OnInit {
   capaciteSalle: number | null = null; // Capacité de la salle saisie
   isEditMode: boolean = false; // Détermine si c'est un ajout ou une modification
   message: string = ''; // Message de retour utilisateur
+  categorieSalle: string = ''; // Variable liée à la catégorie sélectionnée
+  categories = [
+    { id: '1', nom: 'Salle G3EI' },
+    { id: '2', nom: 'Salle GINF' },
+    { id: '3', nom: 'Salle IND' },
+  ];
 
   constructor(private salleService: SalleService) {}
 
@@ -24,14 +30,21 @@ export class FormSalleComponent implements OnInit {
       this.isEditMode = true;
       this.nomSalle = this.salle.nomSalle;
       this.capaciteSalle = this.salle.capaciteSalle;
+      this.categorieSalle = this.salle.categorieSalle || ''; // Initialiser la catégorie
     }
   }
 
   onSubmit(): void {
-    if (this.nomSalle.trim() && this.capaciteSalle !== null && this.capaciteSalle > 0) {
+    if (this.nomSalle.trim() && this.capaciteSalle !== null && this.capaciteSalle > 0 && this.categorieSalle) {
+      const salleData = {
+        nomSalle: this.nomSalle,
+        capaciteSalle: this.capaciteSalle,
+        categorieSalle: this.categorieSalle, // Ajouter la catégorie
+      };
+
       if (this.isEditMode && this.salle?.id) {
         // Modification d'une salle existante
-        this.salleService.updateSalle(this.salle.id, { nomSalle: this.nomSalle, capaciteSalle: this.capaciteSalle }).subscribe({
+        this.salleService.updateSalle(this.salle.id, salleData).subscribe({
           next: () => {
             this.message = 'Salle modifiée avec succès.';
           },
@@ -41,11 +54,12 @@ export class FormSalleComponent implements OnInit {
         });
       } else {
         // Ajout d'une nouvelle salle
-        this.salleService.addSalle({ nomSalle: this.nomSalle, capaciteSalle: this.capaciteSalle }).subscribe({
+        this.salleService.addSalle(salleData).subscribe({
           next: () => {
             this.message = 'Salle ajoutée avec succès.';
             this.nomSalle = ''; // Réinitialiser les champs
             this.capaciteSalle = null;
+            this.categorieSalle = ''; // Réinitialiser la catégorie
           },
           error: (err) => {
             this.message = `Erreur lors de l'ajout : ${err.message}`;
@@ -53,7 +67,7 @@ export class FormSalleComponent implements OnInit {
         });
       }
     } else {
-      this.message = 'Le nom et la capacité de la salle sont requis et doivent être valides.';
+      this.message = 'Le nom, la capacité de la salle et la catégorie sont requis et doivent être valides.';
     }
   }
 }
