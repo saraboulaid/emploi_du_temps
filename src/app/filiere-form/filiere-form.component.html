@@ -1,0 +1,24 @@
+<div class="filiere-form-container">
+  <h3>{{ filiere?.id ? 'Modifier la Filière' : 'Ajouter une Filière' }}</h3>
+
+  <form [formGroup]="filiereForm" (ngSubmit)="onSubmit()">
+    <!-- Champ du nom de la filière -->
+    <div>
+      <label for="nomFiliere">Nom de la Filière</label>
+      <input
+        id="nomFiliere"
+        type="text"
+        formControlName="nomFiliere"
+        placeholder="Entrez le nom de la filière"
+      />
+      <div *ngIf="filiereForm.get('nomFiliere')?.invalid && filiereForm.get('nomFiliere')?.touched">
+        <small class="error">Le nom de la filière est requis.</small>
+      </div>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <button type="submit" [disabled]="filiereForm.invalid">
+      {{ filiere?.id ? 'Modifier' : 'Ajouter' }}
+    </button>
+  </form>
+</div>

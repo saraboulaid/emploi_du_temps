@@ -17,11 +17,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import {HttpClientModule} from "@angular/common/http";
+
+import { MatieresComponent } from './matieres/matieres.component';
+import { ProfsComponent } from './profs/profs.component';
+import { SallesComponent } from './salles/salles.component';
+import { DurationComponent } from './duration/duration.component';
+import { TypeSeanceComponent } from './type-seance/type-seance.component';
+import { FiliereFormComponent } from './filiere-form/filiere-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent],
-  imports: [BrowserModule,MatSelectModule ,MatButtonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule,],
+  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent, MatieresComponent, ProfsComponent, SallesComponent, DurationComponent, TypeSeanceComponent],
+  imports: [BrowserModule,MatSelectModule ,MatButtonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule, HttpClientModule ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

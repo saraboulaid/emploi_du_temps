@@ -26,16 +26,16 @@ export class SidebarComponent {
   // ];
 
   menuItems = [
-    { name: 'Filiere', route: '/crud-table/Filiere', icon: 'school-outline' },
-    { name: 'Profs', route: '/crud-table/Profs', icon: 'person-outline' },
-    { name: 'Matieres', route: '/crud-table/Matieres', icon: 'book-outline' },
+    { name: 'Filiere', route: 'filiere', icon: 'school-outline' },
+    { name: 'Profs', route: 'profs', icon: 'person-outline' },
+    { name: 'Matieres', route: 'matieres', icon: 'book-outline' },
     {
       name: 'Type Séance',
-      route: '/crud-table/Type Séance',
+      route: 'type_seance',
       icon: 'construct-outline',
     },
-    { name: 'Salles', route: '/crud-table/Salles', icon: 'grid-outline' },
-    { name: 'Duration', route: '/crud-table/Duration', icon: 'time-outline' },
+    { name: 'Salles', route: 'salles', icon: 'grid-outline' },
+    { name: 'Duration', route: 'duration', icon: 'time-outline' },
     {
       name: 'Emploi du Temps',
       route: '/emploi-du-temps',

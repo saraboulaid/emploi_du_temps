@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class FiliereService {
   private apiUrl = 'http://127.0.0.1:8000/api/filieres';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient ) {}
 
 
   getFilieres(): Observable<any[]> {

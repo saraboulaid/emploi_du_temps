@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+
             "outputPath": "dist/edt_front",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,6 +24,7 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
+
             "scripts": []
           },
           "configurations": {
@@ -62,6 +64,9 @@
               "browserTarget": "edt_front:build:development"
             }
           },
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
@@ -89,4 +94,5 @@
   "cli": {
     "analytics": "51bb1a79-840c-4cd4-8ce3-df1a130359ff"
   }
+
 }

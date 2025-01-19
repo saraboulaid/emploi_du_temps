@@ -1,24 +1,24 @@
-<!--<div class="sidebar">-->
-<!--  <div class="logo">-->
-<!--    <div class="nav__brand">-->
-<!--      <ion-icon-->
-<!--        name="menu-outline"-->
-<!--        class="nav__toggle"-->
-<!--        id="nav-toggle"-->
-<!--      ></ion-icon>-->
-<!--      <a href="#" class="nav__logo">EnsaEdu</a>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <ul class="menu">-->
-<!--    <li-->
-<!--      *ngFor="let item of menuItems"-->
-<!--      [class.active]="item === activeItem"-->
-<!--      (click)="setActiveItem(item)"-->
-<!--    >-->
-<!--      <a [routerLink]="item.route" routerLinkActive="active">-->
-<!--        <ion-icon [name]="item.icon" class="nav__icon"></ion-icon>-->
-<!--        {{ item.name }}-->
-<!--      </a>-->
-<!--    </li>-->
-<!--  </ul>-->
-<!--</div>-->
+<div class="sidebar">
+  <div class="logo">
+    <div class="nav__brand">
+      <ion-icon
+        name="menu-outline"
+        class="nav__toggle"
+        id="nav-toggle"
+      ></ion-icon>
+      <a href="#" class="nav__logo">EnsaEdu</a>
+    </div>
+  </div>
+  <ul class="menu">
+    <li
+      *ngFor="let item of menuItems"
+      [class.active]="item === activeItem"
+      (click)="setActiveItem(item)"
+    >
+      <a [routerLink]="item.route" routerLinkActive="active">
+        <ion-icon [name]="item.icon" class="nav__icon"></ion-icon>
+        {{ item.name }}
+      </a>
+    </li>
+  </ul>
+</div>

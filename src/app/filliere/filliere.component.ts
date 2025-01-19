@@ -15,7 +15,8 @@ export class FilliereComponent implements OnInit {
    filieres: any[] = [];
   error: any | string = " ";
 
-  constructor(private filiereService: FiliereService, private router: Router) {}  // Injection du Router
+  constructor( private router: Router, private filiereService: FiliereService) {}  // Injection du Router
+ 
 
   ngOnInit(): void {
     this.filiereService.getFilieres().subscribe(

@@ -7,7 +7,7 @@
     </button>
   </div>
 
-  <table class="data-table">
+  <table class="data-table" *ngIf="filieres.length > 0; else noData">
     <thead>
     <tr>
       <th>Nom Filière</th>
@@ -15,40 +15,23 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>Informatique</td>
+    <tr *ngFor="let filiere of filieres">
+      <td>{{ filiere.nom }}</td>
       <td class="actions">
-        <button class="btn-action btn-edit">
+        <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + filiere.id)">
           <i class="edit-icon">✎</i>
         </button>
-        <button class="btn-action btn-delete">
-          <i class="delete-icon">×</i>
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td>Électronique</td>
-      <td class="actions">
-        <button class="btn-action btn-edit">
-          <i class="edit-icon">✎</i>
-        </button>
-        <button class="btn-action btn-delete">
-          <i class="delete-icon">×</i>
-        </button>
-      </td>
-    </tr>
-    <tr>
-      <td>Mécanique</td>
-      <td class="actions">
-        <button class="btn-action btn-edit">
-          <i class="edit-icon">✎</i>
-        </button>
-        <button class="btn-action btn-delete">
+        <button class="btn-action btn-delete" >
           <i class="delete-icon">×</i>
         </button>
       </td>
     </tr>
     </tbody>
   </table>
-  <router-outlet></router-outlet>
+
+  <ng-template #noData>
+    <div class="no-data">
+      <p>Aucune filière trouvée.</p>
+    </div>
+  </ng-template>
 </div>

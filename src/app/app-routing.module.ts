@@ -3,23 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { CrudTableComponent } from './crud-table/crud-table.component';
 import { EmploiDuTempsComponent } from './emploi-du-temps/emploi-du-temps.component';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
-import { DashbordComponent } from './dashbord/dashbord.component';
+
 import { FilliereComponent } from './filliere/filliere.component';
-import { FormulaireComponent } from './formulaire/formulaire.component'; // Importation du composant FormulaireComponent
+import { ProfsComponent } from './profs/profs.component';
+import { MatieresComponent } from './matieres/matieres.component';
+import { TypeSeanceComponent } from './type-seance/type-seance.component';
+import { SallesComponent } from './salles/salles.component';
+import { DurationComponent } from './duration/duration.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashbord', pathMatch: 'full' },
-  {
-    path: 'dashbord', component: DashbordComponent, children: [
-      { path: 'filiere', component: FilliereComponent, children: [
-          { path: 'form', component: FormulaireComponent }, // La route vers form
-        ]
-      },
-    ]
-  },
-  // { path: 'crud-table/:name', component: CrudTableComponent },
-  // { path: 'emploi-du-temps', component: EmploiDuTempsComponent },
-  // { path: 'schedule-form', component: ScheduleFormComponent },
+
+  { path: 'filiere', component: FilliereComponent },
+  { path: 'profs', component: ProfsComponent},
+  { path: 'matieres', component: MatieresComponent },
+  { path: 'type_seance', component: TypeSeanceComponent },
+  { path: 'salles', component: SallesComponent },
+  { path: 'duration', component: DurationComponent },
+  { path: 'emploi-du-temps', component: EmploiDuTempsComponent },
+  { path: 'schedule-form', component: ScheduleFormComponent },
 ];
 
 @NgModule({
