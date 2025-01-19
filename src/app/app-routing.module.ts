@@ -16,8 +16,9 @@ const routes: Routes = [
 
   { path: 'filiere', component: FilliereComponent },
   { path: 'filiere/form', component: FiliereFormComponent },
-
   { path: 'filiere/edit/:id', component: FiliereFormComponent },
+
+
   { path: 'profs', component: ProfsComponent},
   { path: 'matieres', component: MatieresComponent },
   { path: 'type_seance', component: TypeSeanceComponent },

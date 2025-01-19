@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfService {
-  private baseUrl = 'http://localhost/api/profs';
+  private baseUrl = 'http://localhost:8080/api/profs';
 
   constructor(private http: HttpClient) {}
 

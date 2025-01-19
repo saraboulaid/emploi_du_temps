@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TypeSceanceService {
-  private baseUrl = 'http://localhost/api/typeSeances';
+  private baseUrl = 'http://localhost:8080/api/typeSeances';
 
   constructor(private http: HttpClient) {}
 

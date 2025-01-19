@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DurationService {
-  private baseUrl = 'http://localhost/api/durations';
+  private baseUrl = 'http://localhost:8080/api/durations';
 
   constructor(private http: HttpClient) {}
 

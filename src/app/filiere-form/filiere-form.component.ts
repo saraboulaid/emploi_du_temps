@@ -7,12 +7,12 @@ import { ReactiveFormsModule } from '@angular/forms'; // Importez ici
   selector: 'app-filiere-form',
   templateUrl: './filiere-form.component.html',
   styleUrls: ['./filiere-form.component.css'],
-  standalone: true, // Déclare le composant comme autonome
-  imports: [CommonModule, FormsModule,ReactiveFormsModule], // Importe les modules nécessaires
+  standalone: true,
+  imports: [CommonModule, FormsModule,ReactiveFormsModule],
 })
 
 export class FiliereFormComponent {
-  @Input() filiere: any = { id: null, nomFiliere: '' }; // Par défaut, pas d'ID pour l'ajout
+  @Input() filiere: any = { id: null, nomFiliere: '' };
   @Output() save = new EventEmitter<any>();
 
   filiereForm: FormGroup;
@@ -25,7 +25,7 @@ export class FiliereFormComponent {
   }
 
   ngOnChanges(): void {
-    // Préremplir le formulaire si des données de filière sont passées
+
     this.filiereForm.patchValue(this.filiere);
   }
 
