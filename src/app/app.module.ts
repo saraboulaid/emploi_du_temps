@@ -1,7 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -24,7 +23,8 @@ import { SallesComponent } from './salles/salles.component';
 import { DurationComponent } from './duration/duration.component';
 import { TypeSeanceComponent } from './type-seance/type-seance.component';
 import { FiliereFormComponent } from './filiere-form/filiere-form.component';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { CommonModule } from '@angular/common';
@@ -36,7 +36,7 @@ import { FormTypeSceanceComponent } from './form-type-sceance/form-type-sceance.
 import { FormMatiereComponent } from './form-matiere/form-matiere.component';
 
 @NgModule({
-  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent],
+  declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent,DurationComponent],
   imports: [BrowserModule,MatSelectModule ,MatButtonModule, CommonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule, HttpClientModule ],
   providers: [
     {

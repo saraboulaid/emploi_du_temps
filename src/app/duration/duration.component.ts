@@ -5,44 +5,31 @@ import { DurationService } from '../duration.service'; // Service pour gérer le
 @Component({
   selector: 'app-duration',
   templateUrl: './duration.component.html',
-  styleUrls: ['./duration.component.css'],
-  standalone: true
+  styleUrls: ['./duration.component.css']
+
 })
 export class DurationComponent implements OnInit {
-  durations: any[] = [];
-  error: any | string = '';
+  durations = [
+    // Exemple de données
+    { id: 1, jour: 'Lundi', debutSeance: '08:00', finSeance: '10:00' },
+    { id: 2, jour: 'Mardi', debutSeance: '09:00', finSeance: '11:00' }
+  ];
 
-  constructor(private router: Router, private durationService: DurationService) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.durationService.getDurations().subscribe(
-      (response) => {
-        this.durations = response;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des durées', error);
-        this.error = 'Une erreur s\'est produite lors du chargement des données.';
-      }
-    );
+    // Initialisation des données
   }
 
   navigateToForm(route: string) {
     const url = `/duration/${route}`;
-    console.log('Navigating to:', url);
+    console.log('Navigating to: ', url);
     this.router.navigate([url]);
   }
 
-  deleteDuration(id: number) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette durée ?')) {
-      this.durationService.deleteDuration(id).subscribe(
-        () => {
-          this.durations = this.durations.filter((duration) => duration.id !== id);
-        },
-        (error) => {
-          console.error('Erreur lors de la suppression de la durée', error);
-          alert('Une erreur est survenue lors de la suppression.');
-        }
-      );
-    }
+  deleteDuration(id: number): void {
+    // Logique de suppression de la durée
+    this.durations = this.durations.filter(duration => duration.id !== id);
   }
 }
+

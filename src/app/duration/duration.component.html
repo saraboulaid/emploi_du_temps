@@ -9,23 +9,27 @@
 
   <table class="data-table" *ngIf="durations.length > 0; else noData">
     <thead>
-    <tr>
-      <th>Nom Durée</th>
-      <th>Actions</th>
-    </tr>
+      <tr>
+        <th>Jour</th>
+        <th>Début de Séance</th>
+        <th>Fin de Séance</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let duration of durations">
-      <td>{{ duration.nom }}</td>
-      <td class="actions">
-        <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + duration.id)">
-          <i class="edit-icon">✎</i>
-        </button>
-        <button class="btn-action btn-delete" (click)="deleteDuration(duration.id)">
-          <i class="delete-icon">×</i>
-        </button>
-      </td>
-    </tr>
+      <tr *ngFor="let duration of durations">
+        <td>{{ duration.jour }}</td>
+        <td>{{ duration.debutSeance }}</td>
+        <td>{{ duration.finSeance }}</td>
+        <td class="actions">
+          <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + duration.id)">
+            <i class="edit-icon">✎</i>
+          </button>
+          <button class="btn-action btn-delete" (click)="deleteDuration(duration.id)">
+            <i class="delete-icon">×</i>
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
 
