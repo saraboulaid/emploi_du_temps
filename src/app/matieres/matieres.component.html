@@ -11,12 +11,20 @@
     <thead>
     <tr>
       <th>Nom Matière</th>
+      <th>Semestres</th>
+      <th>Filière</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let matiere of matieres">
       <td>{{ matiere.nom }}</td>
+      <td>
+        <span *ngFor="let semestre of matiere.semestres; let last = last">
+          {{ semestre }}<span *ngIf="!last">, </span>
+        </span>
+      </td>
+      <td>{{ matiere.filiere }}</td>
       <td class="actions">
         <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + matiere.id)">
           <i class="edit-icon">✎</i>

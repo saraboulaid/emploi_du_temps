@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule} from '@angular/router';
 import { MatiereService } from '../matiere.service'; // Service pour gérer les matières
+import {CommonModule} from "@angular/common";  // Import du Router
 
 @Component({
   selector: 'app-matieres',
   templateUrl: './matieres.component.html',
   styleUrls: ['./matieres.component.css'],
-  standalone: true
+  standalone: true,
+  imports: [CommonModule, RouterModule]
 })
 export class MatieresComponent implements OnInit {
   matieres: any[] = []; // Liste des matières
@@ -18,7 +20,11 @@ export class MatieresComponent implements OnInit {
     // Récupération des données des matières au chargement du composant
     this.matiereService.getMatieres().subscribe(
       (response) => {
-        this.matieres = response;
+        this.matieres = response.map((matiere) => ({
+          ...matiere,
+          filiere: matiere.filiere,
+          semestres: matiere.semestres
+        }));
       },
       (error) => {
         console.error('Erreur lors de la récupération des matières', error);
@@ -27,6 +33,17 @@ export class MatieresComponent implements OnInit {
     );
   }
 
+  loadFilieres(): void {
+    this.matiereService.getMatieres().subscribe({
+      next: (matieres) => {
+        this.matieres = matieres;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des filières', err);
+        this.error = 'Impossible de charger les filières.';
+      }
+    });
+  }
 
   navigateToForm(route: string) {
     const url = `/matieres/${route}`;

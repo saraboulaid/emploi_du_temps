@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatiereService } from '../matiere.service';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-matiere',
@@ -14,24 +15,36 @@ export class FormMatiereComponent implements OnInit {
   nomMatiere: string = ''; // Nom de la matière saisi
   isEditMode: boolean = false; // Détermine le mode : ajout ou édition
   message: string = ''; // Message de feedback utilisateur
+  id: number| null = null;
 
-  constructor(private matiereService: MatiereService) {}
+  constructor(private matiereService: MatiereService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    // Si une matière est passée, on est en mode édition
-    if (this.matiere) {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id) {
       this.isEditMode = true;
-      this.nomMatiere = this.matiere.nomMatiere;
-    }
+      this.loadMatiere(Number(this.id));    }
+  }
+  loadMatiere(id: number): void {
+    this.matiereService.getMatiereById(id).subscribe({
+      next: (matiere) => {
+        this.nomMatiere = matiere.nom;
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération de la matière', err);
+        this.message = 'Impossible de charger la matière.';
+      },
+    });
   }
 
   onSubmit(): void {
     if (this.nomMatiere.trim()) {
-      if (this.isEditMode && this.matiere?.id) {
+      if (this.isEditMode && this.id) {
         // Modification d'une matière existante
-        this.matiereService.updateMatiere(this.matiere.id, { nomMatiere: this.nomMatiere }).subscribe({
+        this.matiereService.updateMatiere(this.id, { nom: this.nomMatiere }).subscribe({
           next: () => {
             this.message = 'Matière modifiée avec succès.';
+            this.router.navigate(['/matiere']);
           },
           error: (err) => {
             this.message = `Erreur lors de la modification : ${err.message}`;
@@ -39,9 +52,10 @@ export class FormMatiereComponent implements OnInit {
         });
       } else {
         // Ajout d'une nouvelle matière
-        this.matiereService.addMatiere({ nomMatiere: this.nomMatiere }).subscribe({
+        this.matiereService.addMatiere({ nom: this.nomMatiere }).subscribe({
           next: () => {
             this.message = 'Matière ajoutée avec succès.';
+            this.router.navigate(['/matiere']);
             this.nomMatiere = ''; // Réinitialisation du champ
           },
           error: (err) => {
