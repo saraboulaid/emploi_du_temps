@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfService {
-  private baseUrl = 'http://localhost:8080/api/profs';
+  private baseUrl = 'http://127.0.0.1:8000/api/profs';
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +22,10 @@ export class ProfService {
     return this.http.post<any>(`${this.baseUrl}/create`, prof);
   }
 
-  updateProf(id: number, prof: any): Observable<any> {
+  updateProf(
+    id: number,
+    prof: { nom: string; prenom: string }
+  ): Observable<any> {
     return this.http.put<any>(`${this.baseUrl}/${id}/update`, prof);
   }
 

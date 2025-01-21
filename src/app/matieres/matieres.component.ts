@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule} from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatiereService } from '../matiere.service'; // Service pour gérer les matières
-import {CommonModule} from "@angular/common";  // Import du Router
-
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-matieres',
   templateUrl: './matieres.component.html',
   styleUrls: ['./matieres.component.css'],
+  imports: [CommonModule],
   standalone: true,
-  imports: [CommonModule, RouterModule]
 })
 export class MatieresComponent implements OnInit {
   matieres: any[] = []; // Liste des matières
@@ -23,26 +22,15 @@ export class MatieresComponent implements OnInit {
         this.matieres = response.map((matiere) => ({
           ...matiere,
           filiere: matiere.filiere,
-          semestres: matiere.semestres
+          semestres: matiere.semestres,
         }));
       },
       (error) => {
         console.error('Erreur lors de la récupération des matières', error);
-        this.error = 'Une erreur s\'est produite lors du chargement des données.';
+        this.error =
+          "Une erreur s'est produite lors du chargement des données.";
       }
     );
-  }
-
-  loadFilieres(): void {
-    this.matiereService.getMatieres().subscribe({
-      next: (matieres) => {
-        this.matieres = matieres;
-      },
-      error: (err) => {
-        console.error('Erreur lors du chargement des filières', err);
-        this.error = 'Impossible de charger les filières.';
-      }
-    });
   }
 
   navigateToForm(route: string) {
@@ -50,7 +38,6 @@ export class MatieresComponent implements OnInit {
     console.log('Navigating to:', url);
     this.router.navigate([url]);
   }
-
 
   deleteMatiere(id: number) {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette matière ?')) {

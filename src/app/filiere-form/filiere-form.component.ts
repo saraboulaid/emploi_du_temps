@@ -1,22 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FiliereService } from '../filiere.service';
-import {FormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-filiere-form',
   templateUrl: './filiere-form.component.html',
   styleUrls: ['./filiere-form.component.css'],
-  imports: [
-    FormsModule
-  ],
-  standalone: true
+  imports: [FormsModule, CommonModule],
+  standalone: true,
 })
 export class FiliereFormComponent implements OnInit {
   @Input() filiere: any = null;
   nomFiliere: string = '';
   isEditMode: boolean = false;
   message: string = '';
-  id: number| null = null;
+  id: number | null = null;
   constructor(
     private filiereService: FiliereService,
     private route: ActivatedRoute,
@@ -46,15 +45,17 @@ export class FiliereFormComponent implements OnInit {
     if (this.nomFiliere.trim()) {
       if (this.isEditMode && this.id) {
         // Appel au service pour la modification
-        this.filiereService.updateFiliere(this.id, { nom: this.nomFiliere }).subscribe({
-          next: () => {
-            this.message = 'Filière modifiée avec succès.';
-            this.router.navigate(['/filiere']);
-          },
-          error: (err) => {
-            this.message = `Erreur lors de la modification : ${err.message}`;
-          },
-        });
+        this.filiereService
+          .updateFiliere(this.id, { nom: this.nomFiliere })
+          .subscribe({
+            next: () => {
+              this.message = 'Filière modifiée avec succès.';
+              this.router.navigate(['/filiere']);
+            },
+            error: (err) => {
+              this.message = `Erreur lors de la modification : ${err.message}`;
+            },
+          });
       } else {
         // Appel au service pour l'ajout
         this.filiereService.addFiliere({ nom: this.nomFiliere }).subscribe({

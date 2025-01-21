@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SalleService } from '../salle.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-salle',
   templateUrl: './form-salle.component.html',
   styleUrls: ['./form-salle.component.css'],
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   standalone: true,
 })
 export class FormSalleComponent implements OnInit {
@@ -35,7 +36,12 @@ export class FormSalleComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.nomSalle.trim() && this.capaciteSalle !== null && this.capaciteSalle > 0 && this.categorieSalle) {
+    if (
+      this.nomSalle.trim() &&
+      this.capaciteSalle !== null &&
+      this.capaciteSalle > 0 &&
+      this.categorieSalle
+    ) {
       const salleData = {
         nomSalle: this.nomSalle,
         capaciteSalle: this.capaciteSalle,
@@ -67,7 +73,8 @@ export class FormSalleComponent implements OnInit {
         });
       }
     } else {
-      this.message = 'Le nom, la capacité de la salle et la catégorie sont requis et doivent être valides.';
+      this.message =
+        'Le nom, la capacité de la salle et la catégorie sont requis et doivent être valides.';
     }
   }
 }

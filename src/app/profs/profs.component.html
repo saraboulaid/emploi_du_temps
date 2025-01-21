@@ -1,6 +1,6 @@
 <div class="container">
   <div class="header">
-    <h1>Liste des Professeurs</h1>
+    <h1>Liste des profs</h1>
     <button class="btn-add" (click)="navigateToForm('form')">
       <i class="plus-icon">+</i>
       Ajouter
@@ -9,29 +9,34 @@
 
   <table class="data-table" *ngIf="profs.length > 0; else noData">
     <thead>
-    <tr>
-      <th>Nom Professeur</th>
-      <th>Actions</th>
-    </tr>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Actions</th>
+      </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let prof of profs">
-      <td>{{ prof.nom }}</td>
-      <td class="actions">
-        <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + prof.id)">
-          <i class="edit-icon">✎</i>
-        </button>
-        <button class="btn-action btn-delete" (click)="deleteProf(prof.id)">
-          <i class="delete-icon">×</i>
-        </button>
-      </td>
-    </tr>
+      <tr *ngFor="let prof of profs">
+        <td>{{ prof.nom }}</td>
+        <td>{{ prof.prenom }}</td>
+        <td class="actions">
+          <button
+            class="btn-action btn-edit"
+            (click)="navigateToForm('edit/' + prof.id)"
+          >
+            <i class="edit-icon">✎</i>
+          </button>
+          <button class="btn-action btn-delete" (click)="deleteProf(prof.id)">
+            <i class="delete-icon">×</i>
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
 
   <ng-template #noData>
     <div class="no-data">
-      <p>Aucun professeur trouvé.</p>
+      <p>Aucun prof trouvé.</p>
     </div>
   </ng-template>
 </div>

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfService } from '../prof.service'; // Service pour gérer les professeurs
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profs',
   templateUrl: './profs.component.html',
   styleUrls: ['./profs.component.css'],
-  standalone: true
+  imports: [CommonModule],
+  standalone: true,
 })
 export class ProfsComponent implements OnInit {
   profs: any[] = []; // Liste des professeurs
@@ -15,18 +17,17 @@ export class ProfsComponent implements OnInit {
   constructor(private router: Router, private profService: ProfService) {} // Injection du Router et du service
 
   ngOnInit(): void {
-
     this.profService.getProfs().subscribe(
       (response) => {
         this.profs = response;
       },
       (error) => {
         console.error('Erreur lors de la récupération des professeurs', error);
-        this.error = 'Une erreur s\'est produite lors du chargement des données.';
+        this.error =
+          "Une erreur s'est produite lors du chargement des données.";
       }
     );
   }
-
 
   navigateToForm(route: string) {
     const url = `/profs/${route}`;

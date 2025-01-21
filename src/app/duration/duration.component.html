@@ -19,13 +19,19 @@
     <tbody>
       <tr *ngFor="let duration of durations">
         <td>{{ duration.jour }}</td>
-        <td>{{ duration.debutSeance }}</td>
-        <td>{{ duration.finSeance }}</td>
+        <td>{{ duration.horaire_debut_seance }}</td>
+        <td>{{ duration.horaire_fin_seance }}</td>
         <td class="actions">
-          <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + duration.id)">
+          <button
+            class="btn-action btn-edit"
+            (click)="navigateToForm('edit/' + duration.id)"
+          >
             <i class="edit-icon">✎</i>
           </button>
-          <button class="btn-action btn-delete" (click)="deleteDuration(duration.id)">
+          <button
+            class="btn-action btn-delete"
+            (click)="deleteDuration(duration.id)"
+          >
             <i class="delete-icon">×</i>
           </button>
         </td>

@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TypeSceanceService } from '../type-sceance.service';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form-type-sceance',
   templateUrl: './form-type-sceance.component.html',
   styleUrls: ['./form-type-sceance.component.css'],
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   standalone: true,
 })
 export class FormTypeSceanceComponent implements OnInit {
@@ -30,7 +31,9 @@ export class FormTypeSceanceComponent implements OnInit {
       if (this.isEditMode && this.typeSceance?.id) {
         // Modification d'un type de séance existant
         this.typeSceanceService
-          .updateTypeSeance(this.typeSceance.id, { nomTypeSceance: this.nomTypeSceance })
+          .updateTypeSeance(this.typeSceance.id, {
+            nomTypeSceance: this.nomTypeSceance,
+          })
           .subscribe({
             next: () => {
               this.message = 'Type de séance modifié avec succès.';
@@ -41,15 +44,17 @@ export class FormTypeSceanceComponent implements OnInit {
           });
       } else {
         // Ajout d'un nouveau type de séance
-        this.typeSceanceService.addTypeSeance({ nomTypeSceance: this.nomTypeSceance }).subscribe({
-          next: () => {
-            this.message = 'Type de séance ajouté avec succès.';
-            this.nomTypeSceance = ''; // Réinitialiser le champ
-          },
-          error: (err) => {
-            this.message = `Erreur lors de l'ajout : ${err.message}`;
-          },
-        });
+        this.typeSceanceService
+          .addTypeSeance({ nomTypeSceance: this.nomTypeSceance })
+          .subscribe({
+            next: () => {
+              this.message = 'Type de séance ajouté avec succès.';
+              this.nomTypeSceance = ''; // Réinitialiser le champ
+            },
+            error: (err) => {
+              this.message = `Erreur lors de l'ajout : ${err.message}`;
+            },
+          });
       }
     } else {
       this.message = 'Le nom du type de séance est requis.';

@@ -133,18 +133,19 @@ h1 {
   }
 }
 .filiere-box {
-  position: fixed;  /* Utilisez fixed pour qu'il reste visible même en scrollant */
-  top: 20px;  /* Ajustez la position depuis le haut de l'écran */
+  position: fixed; /* Utilisez fixed pour qu'il reste visible même en scrollant */
+  top: 20px; /* Ajustez la position depuis le haut de l'écran */
   left: 50%;
-  transform: translateX(-50%);  /* Centrer la boîte horizontalement */
+  transform: translateX(-50%); /* Centrer la boîte horizontalement */
+
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;  /* S'assurer que la boîte est au-dessus des autres éléments */
-  width: 90%;  /* Largeur de la boîte, ajustez en fonction de votre besoin */
-  max-width: 600px;  /* Largeur maximale */
-  display: none;  /* Masqué par défaut */
+  z-index: 1000; /* S'assurer que la boîte est au-dessus des autres éléments */
+  width: 90%; /* Largeur de la boîte, ajustez en fonction de votre besoin */
+  max-width: 600px; /* Largeur maximale */
+  display: none; /* Masqué par défaut */
 }
 
 .filiere-box-content {
@@ -160,10 +161,10 @@ h1 {
 }
 
 .filiere-box.open {
-  display: block;  /* Affiche la boîte si elle est visible */
+  display: block; /* Affiche la boîte si elle est visible */
 }
 
 .filiere-box-content {
   max-height: 80vh;
-  overflow-y: auto;  /* Ajoute une barre de défilement si le contenu est trop grand */
+  overflow-y: auto; /* Ajoute une barre de défilement si le contenu est trop grand */
 }

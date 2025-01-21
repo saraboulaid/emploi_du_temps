@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SalleService } from '../salle.service'; // Service pour gérer les salles
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-salles',
   templateUrl: './salles.component.html',
   styleUrls: ['./salles.component.css'],
-  standalone: true
+  imports: [CommonModule],
+  standalone: true,
 })
 export class SallesComponent implements OnInit {
   salles: any[] = []; // Liste des salles
@@ -22,7 +24,8 @@ export class SallesComponent implements OnInit {
       },
       (error) => {
         console.error('Erreur lors de la récupération des salles', error);
-        this.error = 'Une erreur s\'est produite lors du chargement des données.';
+        this.error =
+          "Une erreur s'est produite lors du chargement des données.";
       }
     );
   }
