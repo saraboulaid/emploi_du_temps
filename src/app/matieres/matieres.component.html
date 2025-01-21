@@ -24,7 +24,7 @@
           {{ semestre }}<span *ngIf="!last">, </span>
         </span>
       </td>
-      <td>{{ matiere.filiere }}</td>
+      <td>{{ matiere.filiereNom }}</td>
       <td class="actions">
         <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + matiere.id)">
           <i class="edit-icon">✎</i>
