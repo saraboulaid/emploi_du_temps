@@ -439,6 +439,7 @@ def delete_salle(request, pk):
 
 #_______________________________________________génération d'emploi du temps_________________________________________________________________
 @api_view(['GET'])
+@is_authenticated
 def generate_schedule(request):
     # Récupérer toutes les filières
     filieres = Filiere.objects.all()
