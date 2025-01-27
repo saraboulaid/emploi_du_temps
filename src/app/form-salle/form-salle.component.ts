@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SalleService } from '../salle.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -23,15 +24,15 @@ export class FormSalleComponent implements OnInit {
     { id: '3', nom: 'Salle IND' },
   ];
 
-  constructor(private salleService: SalleService) {}
+  constructor(private salleService: SalleService, private router: Router) {}
 
   ngOnInit(): void {
     // Si une salle est passée, on est en mode édition
     if (this.salle) {
       this.isEditMode = true;
-      this.nomSalle = this.salle.nomSalle;
-      this.capaciteSalle = this.salle.capaciteSalle;
-      this.categorieSalle = this.salle.categorieSalle || ''; // Initialiser la catégorie
+      this.nomSalle = this.salle.nom;
+      this.capaciteSalle = this.salle.effectif;
+      this.categorieSalle = this.salle.categorie || ''; // Initialiser la catégorie
     }
   }
 
@@ -39,13 +40,12 @@ export class FormSalleComponent implements OnInit {
     if (
       this.nomSalle.trim() &&
       this.capaciteSalle !== null &&
-      this.capaciteSalle > 0 &&
-      this.categorieSalle
+      this.capaciteSalle > 0 
     ) {
       const salleData = {
-        nomSalle: this.nomSalle,
-        capaciteSalle: this.capaciteSalle,
-        categorieSalle: this.categorieSalle, // Ajouter la catégorie
+        nom: this.nomSalle,
+        effectif: this.capaciteSalle,
+        categorie: this.categorieSalle, // Ajouter la catégorie
       };
 
       if (this.isEditMode && this.salle?.id) {
@@ -63,6 +63,7 @@ export class FormSalleComponent implements OnInit {
         this.salleService.addSalle(salleData).subscribe({
           next: () => {
             this.message = 'Salle ajoutée avec succès.';
+            this.router.navigate(['/salles']);
             this.nomSalle = ''; // Réinitialiser les champs
             this.capaciteSalle = null;
             this.categorieSalle = ''; // Réinitialiser la catégorie

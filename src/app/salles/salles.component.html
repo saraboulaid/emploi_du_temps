@@ -11,12 +11,16 @@
     <thead>
     <tr>
       <th>Nom de la Salle</th>
+      <th>Effectif</th>
+      <th>Categorie</th>
       <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let salle of salles">
       <td>{{ salle.nom }}</td>
+      <td>{{ salle.effectif }}</td>
+      <td>{{ salle.categorie }}</td>
       <td class="actions">
         <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + salle.id)">
           <i class="edit-icon">✎</i>

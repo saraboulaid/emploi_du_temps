@@ -30,7 +30,6 @@
         id="categorieSalle"
         [(ngModel)]="categorieSalle"
         name="categorieSalle"
-        required
       >
         <option value="" disabled selected>Choisissez une catégorie</option>
         <option *ngFor="let categorie of categories" [value]="categorie.id">
