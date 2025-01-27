@@ -47,4 +47,7 @@ urlpatterns = [
     path('salles/<int:pk>', views.get_salle_by_id, name='get-salle'),
     path('salles/<int:pk>/update', views.update_salle, name='update-salle'), 
     path('salles/<int:pk>/delete', views.delete_salle, name='delete-salle'),
+
+    path("generate-schedule/", views.generate_schedule, name="generate_schedule"),
+
 ]

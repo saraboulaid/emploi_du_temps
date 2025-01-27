@@ -42,3 +42,21 @@ class SalleSerialiser(serializers.ModelSerializer):
     class Meta:
         model = Salle
         fields = '__all__'
+
+class SeanceSerializer(serializers.ModelSerializer):
+    salle = SalleSerialiser()  # Sérialiser la relation Salle
+    prof = ProfSerializer()  # Sérialiser la relation Prof
+    durations = DurationSerializer(many=True)  # Sérialiser la relation Duration
+    type_seance = TypeSeanceSerializer()  # Sérialiser la relation TypeSeance
+
+    class Meta:
+        model = Seance
+        fields = '__all__'
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    filiere = FiliereSerializer()
+    schedule_details = SeanceSerializer(many=True,source='seances')
+
+    class Meta:
+        model = Schedule
+        fields = ['filiere', 'schedule_id', 'fitness_score', 'schedule_details']

@@ -4,6 +4,8 @@ from rest_framework import status
 from .models import *
 from .serializers import *
 from userauth.decorators import is_authenticated
+from .scheduler import genetic_algorithm, calculate_soft_constraints
+
 
 #_________________________________________________________FILIERE_____________________________________________________________
 @api_view(['Get'])
@@ -434,3 +436,66 @@ def delete_salle(request, pk):
     
     salle.delete()
     return Response({'message': 'la salle a bien été supprimer'},status=status.HTTP_204_NO_CONTENT)
+
+#_______________________________________________génération d'emploi du temps_________________________________________________________________
+@api_view(['GET'])
+def generate_schedule(request):
+    # Récupérer toutes les filières
+    filieres = Filiere.objects.all()
+    if not filieres.exists():
+        return Response(
+            {"error": "Aucune filière disponible pour générer un emploi du temps."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Liste pour stocker les emplois du temps générés
+    generated_schedules = []
+
+    # Générer l'emploi du temps pour chaque filière
+    for filiere in filieres:
+        # Générer le meilleur emploi du temps avec l'algorithme génétique
+        best_schedule = genetic_algorithm([filiere])
+
+        # Calculer le score de fitness
+        fitness_score = calculate_soft_constraints(best_schedule)
+
+        # Créer l'instance de Schedule
+        schedule = Schedule.objects.create(fitness_score=fitness_score, filiere=filiere)
+
+        # Ajouter les séances à l'emploi du temps
+        schedule_details = []  # Liste pour stocker les détails des séances de cet emploi du temps
+        print("Contenu de best_schedule:", best_schedule)
+        print("debut ajout de seance")
+        for seance_data in best_schedule:
+            if not isinstance(seance_data, Seance):
+                print(f"Erreur : seance_data n'est pas un objet Seance : {seance_data}")
+                continue
+
+            print(f"Séance à ajouter: Salle: {seance_data.salle}, Prof: {seance_data.prof}, "
+                  f"Durations: {seance_data.durations.all()}, Type de séance: {seance_data.type_seance}")
+
+            # Ajouter la séance à l'emploi du temps
+            schedule.seances.add(seance_data)
+
+            # Sérialiser la séance avec SeanceSerializer
+            seance_serialized = SeanceSerializer(seance_data)
+           
+
+            # Ajouter les détails de la séance dans le format attendu pour la réponse
+            schedule_details.append(seance_serialized.data)
+
+        # Ajouter l'emploi du temps généré à la liste
+        generated_schedules.append({
+            'filiere': filiere.nom,
+            'schedule_id': schedule.id,
+            'fitness_score': fitness_score,
+            'schedule_details': schedule_details
+        })
+
+    return Response(
+        {
+            "message": "Emplois du temps générés avec succès!",
+            "generated_schedules": generated_schedules
+        },
+        status=status.HTTP_201_CREATED
+    )

@@ -55,3 +55,27 @@ class Salle(models.Model):
     effectif = models.IntegerField()
     categorie = models.ForeignKey(Categorie,null=True, on_delete=models.SET_NULL)
     
+# Séance
+class Seance(models.Model):
+    nom = models.CharField(max_length=255)
+    filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE, default=1)
+    matiere = models.ForeignKey(Matiere, on_delete=models.CASCADE,default=1)  # Champ requis
+    equipements = models.JSONField()  # Pour lister les équipements comme un tableau JSON
+    effectif = models.IntegerField()
+    categorie = models.ForeignKey(Categorie, null=True, on_delete=models.SET_NULL)
+    salle = models.ForeignKey(Salle, on_delete=models.CASCADE, related_name="seances")
+    prof = models.ForeignKey(Prof, on_delete=models.CASCADE, related_name="seances")
+    type_seance = models.ForeignKey(TypeSeance, on_delete=models.CASCADE)
+    durations = models.ManyToManyField(Duration, related_name="seances")
+
+# Génération d'emploi du temps
+class Gene(models.Model):
+    date_generation = models.DateTimeField(auto_now_add=True)
+    seances = models.ManyToManyField(Seance, related_name="genes")
+    filieres = models.ManyToManyField(Filiere, related_name="genes")
+
+class Schedule(models.Model):
+    filiere = models.ForeignKey(Filiere, on_delete=models.CASCADE, related_name="schedules")
+    seances = models.ManyToManyField(Seance)
+    date_created = models.DateTimeField(auto_now_add=True)
+    fitness_score = models.FloatField(default=0)
