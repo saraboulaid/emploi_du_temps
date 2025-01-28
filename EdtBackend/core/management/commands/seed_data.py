@@ -57,40 +57,53 @@ class Command(BaseCommand):
 
     def seed_matieres(self):
         matieres = [
-            {'id': 1, 'nom': 'Algèbre 1', 'filiere_id': 1},
-            {'id': 2, 'nom': 'Analyse 1', 'filiere_id': 1},
-            {'id': 3, 'nom': 'Mécanique du Point Matériel', 'filiere_id': 1},
-            {'id': 4, 'nom': 'Chimie Génerale', 'filiere_id': 1},
-            {'id': 5, 'nom': 'Dessin Technique', 'filiere_id': 1},
-            {'id': 6, 'nom': 'Langues Étrangères', 'filiere_id': 1},
-            {'id': 7, 'nom': 'Méthodologie de Travail Universitaire', 'filiere_id': 1},
-            {'id': 8, 'nom': 'Analyse 2', 'filiere_id': 1},
-            {'id': 9, 'nom': 'Algèbre 2', 'filiere_id': 1},
-            {'id': 10, 'nom': 'Électrostatique et Magnétostatique', 'filiere_id': 1},
-            {'id': 11, 'nom': 'Thermodynamique Statique des Fluides', 'filiere_id': 1},
-            {'id': 12, 'nom': 'Algorithmique', 'filiere_id': 1},
-            {'id': 13, 'nom': 'Français 2 et Anglais 2', 'filiere_id': 1},
-            {'id': 14, 'nom': 'Culture Digitale', 'filiere_id': 1},
-            {'id': 15, 'nom': 'Analyse 3', 'filiere_id': 2},
-            {'id': 16, 'nom': 'Algèbre 3', 'filiere_id': 2},
-            {'id': 17, 'nom': 'Mécanique du Solide', 'filiere_id': 2},
-            {'id': 18, 'nom': 'Électrocinétique 1 & 2', 'filiere_id': 2},
-            {'id': 19, 'nom': 'Langage C', 'filiere_id': 2},
-            {'id': 20, 'nom': 'Français 3 et Anglais 3', 'filiere_id': 2},
-            {'id': 21, 'nom': 'Art et Culture', 'filiere_id': 2},
-            {'id': 22, 'nom': 'Analyse 4', 'filiere_id': 2},
-            {'id': 23, 'nom': ' Analyse Numérique et Probabilité', 'filiere_id': 2},
-            {'id': 24, 'nom': 'Optique Géométrique / Optique Physique', 'filiere_id': 2},
-            {'id': 25, 'nom': 'Électromagnétisme', 'filiere_id': 2},
-            {'id': 26, 'nom': 'Électronique Numérique et Analogique', 'filiere_id': 2},
-            {'id': 27, 'nom': 'Français 4 et Anglais 4', 'filiere_id': 2},
-            {'id': 28, 'nom': 'Efficacité Relationnelle et Dynamique de Groupe', 'filiere_id': 2},
-            {'id': 29, 'nom': 'matiere1', 'filiere_id': 3},
+            {'id': 1, 'nom': 'Algèbre 1', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 2, 'nom': 'Analyse 1', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 3, 'nom': 'Mécanique du Point Matériel', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 4, 'nom': 'Chimie Génerale', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 5, 'nom': 'Dessin Technique', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 6, 'nom': 'Langues Étrangères', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 7, 'nom': 'Méthodologie de Travail Universitaire', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 8, 'nom': 'Analyse 2', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 9, 'nom': 'Algèbre 2', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 10, 'nom': 'Électrostatique et Magnétostatique', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 11, 'nom': 'Thermodynamique Statique des Fluides', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 12, 'nom': 'Algorithmique', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 13, 'nom': 'Français 2 et Anglais 2', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 14, 'nom': 'Culture Digitale', 'filiere_id': 1, 'semestres': ['S1', 'S2']},
+            {'id': 15, 'nom': 'Analyse 3', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 16, 'nom': 'Algèbre 3', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 17, 'nom': 'Mécanique du Solide', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 18, 'nom': 'Électrocinétique 1 & 2', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 19, 'nom': 'Langage C', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 20, 'nom': 'Français 3 et Anglais 3', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 21, 'nom': 'Art et Culture', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 22, 'nom': 'Analyse 4', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 23, 'nom': ' Analyse Numérique et Probabilité', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 24, 'nom': 'Optique Géométrique / Optique Physique', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 25, 'nom': 'Électromagnétisme', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 26, 'nom': 'Électronique Numérique et Analogique', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 27, 'nom': 'Français 4 et Anglais 4', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 28, 'nom': 'Efficacité Relationnelle et Dynamique de Groupe', 'filiere_id': 2, 'semestres': ['S1', 'S2']},
+            {'id': 29, 'nom': 'matiere1', 'filiere_id': 3, 'semestres': ['S1', 'S2']},
         ]
 
-        for matiere in matieres:
-            filiere = Filiere.objects.get(id=matiere['filiere_id'])
-            Matiere.objects.get_or_create(id=matiere['id'], nom=matiere['nom'], filiere=filiere)
+        for matiere_data in matieres:
+            # Récupérer la filière associée
+            filiere = Filiere.objects.get(id=matiere_data['filiere_id'])
+
+            # Créer ou récupérer l'objet Matiere
+            matiere, created = Matiere.objects.get_or_create(
+                id=matiere_data['id'],
+                nom=matiere_data['nom'],
+                filiere=filiere
+            )
+
+            # Lier les semestres
+            semestres = Semestre.objects.filter(numero__in=matiere_data['semestres'])
+            matiere.semestres.set(semestres)  # Associer les semestres à la matière
+
+            matiere.save()
 
     def seed_profs(self):
         profs = [
