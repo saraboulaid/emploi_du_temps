@@ -17,7 +17,14 @@ export class ProfService {
   getProfById(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
-
+  // Méthode pour assigner une matière au professeur
+  assign(
+    profId: number,
+    assignData: { type_seance: string; matiere: number }
+  ): Observable<any> {
+    const url = `${this.baseUrl}/${profId}/assign`; // Construction de l'URL de l'API
+    return this.http.post(url, assignData);
+  }
   addProf(prof: any): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/create`, prof);
   }

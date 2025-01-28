@@ -1,5 +1,9 @@
 <div class="type-sceance-form-container">
-  <h3>{{ isEditMode ? 'Modifier le Type de Séance' : 'Ajouter un Type de Séance' }}</h3>
+  <h3>
+    {{
+      isEditMode ? "Modifier le Type de Séance" : "Ajouter un Type de Séance"
+    }}
+  </h3>
 
   <form>
     <!-- Type de Séance -->
@@ -46,16 +50,21 @@
     <!-- Catégorie -->
     <div class="form-group">
       <label for="categorie">Catégorie</label>
-      <select
-        id="categorie"
-        [(ngModel)]="selectedCategorie"
-        name="categorie"
-      >
+      <select id="categorie" [(ngModel)]="selectedCategorie" name="categorie">
         <option *ngFor="let categorie of categories" [value]="categorie.id">
           {{ categorie.nom }}
         </option>
       </select>
     </div>
+    <!-- Professeur
+    <div class="form-group">
+      <label for="professeur">Professeur</label>
+      <select id="professeur" [(ngModel)]="selectedProf" name="professeur">
+        <option *ngFor="let prof of profs" [value]="prof.id">
+          {{ prof.nom }} {{ prof.prenom }}
+        </option>
+      </select>
+    </div> -->
 
     <!-- Matière -->
     <div class="form-group">
@@ -74,7 +83,7 @@
 
     <!-- Submit Button -->
     <button type="button" (click)="onSubmit()">
-      {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+      {{ isEditMode ? "Modifier" : "Ajouter" }}
     </button>
   </form>
 

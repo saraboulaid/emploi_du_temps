@@ -112,15 +112,17 @@ export class FormTypeSceanceComponent implements OnInit {
 
       if (this.isEditMode && this.id) {
         // Modifier un type de séance
-        this.typeSeanceService.updateTypeSeance(this.id, typeSeanceData).subscribe({
-          next: () => {
-            this.message = 'Type de séance modifié avec succès.';
-            this.router.navigate(['/type_seance']);
-          },
-          error: (err) => {
-            this.message = `Erreur lors de la modification : ${err.message}`;
-          },
-        });
+        this.typeSeanceService
+          .updateTypeSeance(this.id, typeSeanceData)
+          .subscribe({
+            next: () => {
+              this.message = 'Type de séance modifié avec succès.';
+              this.router.navigate(['/type_seance']);
+            },
+            error: (err) => {
+              this.message = `Erreur lors de la modification : ${err.message}`;
+            },
+          });
       } else {
         // Ajouter un type de séance
         this.typeSeanceService.addTypeSeance(typeSeanceData).subscribe({
