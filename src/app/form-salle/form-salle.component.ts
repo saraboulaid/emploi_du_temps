@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SalleService } from '../salle.service';
 import { CategorieService } from '../categorie.service'; 
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -21,10 +21,16 @@ export class FormSalleComponent implements OnInit {
   message: string = ''; // Message de retour utilisateur
   categorieSalle: string = ''; // Variable liée à la catégorie sélectionnée
   categories: any[] = []; // Tableau pour stocker les catégories
+  id: number| null = null;
 
-  constructor(private salleService: SalleService, private categorieService: CategorieService, private router: Router) {}
+  constructor(private salleService: SalleService, private categorieService: CategorieService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id) {
+      this.isEditMode = true;
+      this.loadSalle(Number(this.id));    
+    }
     // Chargement des catégories
     this.categorieService.getCategories().subscribe({
       next: (categories) => {
@@ -51,6 +57,28 @@ export class FormSalleComponent implements OnInit {
       );}
   }
 
+  loadSalle(id: number): void {
+    this.salleService.getSalleById(id).subscribe({
+      next: (salle) => {
+        this.nomSalle = salle.nom;
+        this.capaciteSalle = salle.effectif;
+        this.categorieService.getCategorieById(this.salle.categorie).subscribe(
+          (categorie) => {
+            this.categorieSalle = categorie.nom; // Accéder à la propriété 'nom'
+          },
+          (error) => {
+            this.error = 'Erreur lors du chargement de la catégorie';
+            console.error(error);
+          }
+        );
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération de la salle', err);
+        this.message = 'Impossible de charger la salle.';
+      },
+    });
+  }
+
   onSubmit(): void {
     if (
       this.nomSalle.trim() &&
@@ -63,11 +91,12 @@ export class FormSalleComponent implements OnInit {
         categorie: this.categorieSalle, // Ajouter la catégorie
       };
 
-      if (this.isEditMode && this.salle?.id) {
+      if (this.isEditMode && this.id) {
         // Modification d'une salle existante
-        this.salleService.updateSalle(this.salle.id, salleData).subscribe({
+        this.salleService.updateSalle(this.id, salleData).subscribe({
           next: () => {
             this.message = 'Salle modifiée avec succès.';
+            this.router.navigate(['/salles']);
           },
           error: (err) => {
             this.message = `Erreur lors de la modification : ${err.message}`;
@@ -90,7 +119,7 @@ export class FormSalleComponent implements OnInit {
       }
     } else {
       this.message =
-        'Le nom, la capacité de la salle et la catégorie sont requis et doivent être valides.';
+        'Le nom et la capacité de la salle sont requis et doivent être valides.';
     }
   }
 }
