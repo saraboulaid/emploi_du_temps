@@ -36,6 +36,7 @@ export class SidebarComponent {
       icon: 'construct-outline',
     },
     { name: 'Salles', route: 'salles', icon: 'grid-outline' },
+    { name: 'Catégories de salles', route: 'categorie', icon: 'list-outline' },
     { name: 'Duration', route: 'duration', icon: 'time-outline' },
     {
       name: 'Emploi du Temps',

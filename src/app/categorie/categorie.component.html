@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="header">
+      <h1>Liste des Catégories</h1>
+      <button class="btn-add" (click)="navigateToForm('form')">
+        <i class="plus-icon">+</i>
+        Ajouter
+      </button>
+    </div>
+  
+    <table class="data-table" *ngIf="categories.length > 0; else noData">
+      <thead>
+      <tr>
+        <th>Nom Catégorie</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let categorie of categories">
+        <td>{{ categorie.nom }}</td>
+        <td class="actions">
+          <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + categorie.id)">
+            <i class="edit-icon">✎</i>
+          </button>
+          <button class="btn-action btn-delete" (click)="onDelete(categorie.id)">
+            <i class="delete-icon">×</i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  
+    <ng-template #noData>
+      <div class="no-data">
+        <p>Aucune Catégorie trouvée.</p>
+      </div>
+    </ng-template>
+  </div>
+  

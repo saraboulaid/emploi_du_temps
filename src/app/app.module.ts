@@ -34,10 +34,12 @@ import { FormDurationComponent } from './form-duration/form-duration.component';
 import { FormSalleComponent } from './form-salle/form-salle.component';
 import { FormTypeSceanceComponent } from './form-type-sceance/form-type-sceance.component';
 import { FormMatiereComponent } from './form-matiere/form-matiere.component';
+import { CategorieComponent } from './categorie/categorie.component';
+import { CategorieFormComponent } from './categorie-form/categorie-form.component';
 
 @NgModule({
   declarations: [AppComponent, AuthComponent, SidebarComponent, CrudTableComponent, EmploiDuTempsComponent, ScheduleFormComponent,DurationComponent],
-  imports: [BrowserModule,MatSelectModule ,MatButtonModule, CommonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule, HttpClientModule ],
+  imports: [BrowserModule,MatSelectModule ,MatButtonModule, CommonModule, AppRoutingModule, FormsModule,MatTableModule, BrowserAnimationsModule,MatPaginatorModule, MatInputModule,MatIconModule , ReactiveFormsModule, HttpClientModule, CategorieComponent, CategorieFormComponent ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

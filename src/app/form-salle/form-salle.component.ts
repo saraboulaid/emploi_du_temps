@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SalleService } from '../salle.service';
+import { CategorieService } from '../categorie.service'; 
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -12,28 +13,42 @@ import { CommonModule } from '@angular/common';
   standalone: true,
 })
 export class FormSalleComponent implements OnInit {
+  error: any | string = ''; // Gestion des erreurs
   @Input() salle: any = null; // Salle passée en entrée pour édition
   nomSalle: string = ''; // Nom de la salle saisi
   capaciteSalle: number | null = null; // Capacité de la salle saisie
   isEditMode: boolean = false; // Détermine si c'est un ajout ou une modification
   message: string = ''; // Message de retour utilisateur
   categorieSalle: string = ''; // Variable liée à la catégorie sélectionnée
-  categories = [
-    { id: '1', nom: 'Salle G3EI' },
-    { id: '2', nom: 'Salle GINF' },
-    { id: '3', nom: 'Salle IND' },
-  ];
+  categories: any[] = []; // Tableau pour stocker les catégories
 
-  constructor(private salleService: SalleService, private router: Router) {}
+  constructor(private salleService: SalleService, private categorieService: CategorieService, private router: Router) {}
 
   ngOnInit(): void {
+    // Chargement des catégories
+    this.categorieService.getCategories().subscribe({
+      next: (categories) => {
+        // Remplir le tableau des catégories
+        this.categories = categories;
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement des catégories');
+      },
+  });
     // Si une salle est passée, on est en mode édition
     if (this.salle) {
       this.isEditMode = true;
       this.nomSalle = this.salle.nom;
       this.capaciteSalle = this.salle.effectif;
-      this.categorieSalle = this.salle.categorie || ''; // Initialiser la catégorie
-    }
+      this.categorieService.getCategorieById(this.salle.categorie).subscribe(
+        (categorie) => {
+          this.categorieSalle = categorie.nom; // Accéder à la propriété 'nom'
+        },
+        (error) => {
+          this.error = 'Erreur lors du chargement de la catégorie';
+          console.error(error);
+        }
+      );}
   }
 
   onSubmit(): void {

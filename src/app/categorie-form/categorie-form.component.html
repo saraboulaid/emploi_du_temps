@@ -1,0 +1,19 @@
+<div class="categorie-form-container">
+    <h3>{{ isEditMode ? 'Modifier la Catégorie' : 'Ajouter une Catégorie' }}</h3>
+  
+    <form>
+      <div class="form-group">
+        <label for="nomCategorie">Nom de la Catégorie</label>
+        <input id="nomCategorie" type="text"  [(ngModel)]="nomCategorie" placeholder="Entrez le nom de la catégorie" name="nomCategorie"/>
+      </div>
+  
+      <button type="button" (click)="onSubmit()">
+        {{ isEditMode ? 'Modifier' : 'Ajouter' }}
+      </button>
+    </form>
+  
+    <div *ngIf="message" class="message">
+      {{ message }}
+    </div>
+  </div>
+  

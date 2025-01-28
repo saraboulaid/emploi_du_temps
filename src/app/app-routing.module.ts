@@ -17,6 +17,8 @@ import {FormTypeSceanceComponent} from "./form-type-sceance/form-type-sceance.co
 import {FormSalleComponent} from "./form-salle/form-salle.component";
 import {FormDurationComponent} from "./form-duration/form-duration.component";
 import { AuthComponent } from './auth/auth.component';
+import { CategorieComponent } from './categorie/categorie.component';
+import { CategorieFormComponent } from './categorie-form/categorie-form.component';
 
 const routes: Routes = [
   { path: 'filiere', component: FilliereComponent, canActivate: [AuthGuard] },
@@ -24,6 +26,7 @@ const routes: Routes = [
   { path: 'matieres', component: MatieresComponent, canActivate: [AuthGuard] },
   { path: 'type_seance', component: TypeSeanceComponent, canActivate: [AuthGuard] },
   { path: 'salles', component: SallesComponent, canActivate: [AuthGuard] },
+  { path: 'categorie', component: CategorieComponent, canActivate: [AuthGuard] },
   { path: 'duration', component: DurationComponent, canActivate: [AuthGuard] },
   { path: 'emploi-du-temps', component: EmploiDuTempsComponent, canActivate: [AuthGuard] },
   { path: 'schedule-form', component: ScheduleFormComponent, canActivate: [AuthGuard] },
@@ -47,6 +50,9 @@ const routes: Routes = [
 
   { path: 'salles/form', component: FormSalleComponent, canActivate: [AuthGuard]  },
   { path: 'salles/edit/:id', component: FormSalleComponent, canActivate: [AuthGuard] },
+
+  { path: 'categorie/form', component: CategorieFormComponent , canActivate: [AuthGuard] },
+  { path: 'categorie/edit/:id', component: CategorieFormComponent , canActivate: [AuthGuard] },
 
 
   { path: 'duration/form', component: FormDurationComponent, canActivate: [AuthGuard]  },
