@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SalleService } from '../salle.service'; // Service pour gérer les salles
 import { CommonModule } from '@angular/common';
+import { CategorieService } from '../categorie.service';
+import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-salles',
@@ -14,18 +17,43 @@ export class SallesComponent implements OnInit {
   salles: any[] = []; // Liste des salles
   error: any | string = ''; // Gestion des erreurs
 
-  constructor(private router: Router, private salleService: SalleService) {}
+  constructor(private router: Router, private salleService: SalleService, private categorieService: CategorieService) {}
 
   ngOnInit(): void {
     // Récupération des données des salles au chargement du composant
     this.salleService.getSalles().subscribe(
       (response) => {
-        this.salles = response;
+         const sallesWithCategories = response.map((salle: any) => {
+          if (salle.categorie) {
+            return this.categorieService.getCategorieById(salle.categorie).pipe(
+              map((categorie: any) => ({
+                ...salle,
+                categorie: categorie ? categorie.nom : 'Catégorie inconnue',
+              }))
+            );
+          } else {
+            return new Promise((resolve) => {
+              resolve({
+                ...salle,
+                categorie: 'Aucune catégorie', 
+              });
+            });
+          }
+        });        
+
+        forkJoin(sallesWithCategories).subscribe(
+          (sallesAvecCategories) => {
+            this.salles = sallesAvecCategories;
+          },
+          (error) => {
+            console.error('Erreur lors de la récupération des catégories', error);
+            this.error = "Une erreur s'est produite lors de la récupération des catégories.";
+          }
+        );
       },
       (error) => {
         console.error('Erreur lors de la récupération des salles', error);
-        this.error =
-          "Une erreur s'est produite lors du chargement des données.";
+        this.error = "Une erreur s'est produite lors du chargement des données.";
       }
     );
   }

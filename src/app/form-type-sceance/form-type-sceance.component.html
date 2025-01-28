@@ -2,17 +2,77 @@
   <h3>{{ isEditMode ? 'Modifier le Type de Séance' : 'Ajouter un Type de Séance' }}</h3>
 
   <form>
+    <!-- Type de Séance -->
     <div class="form-group">
-      <label for="nomTypeSceance">Nom du Type de Séance</label>
+      <label for="typeSeance">Type de Séance</label>
+      <select
+        id="typeSeance"
+        [(ngModel)]="selectedTypeSeance"
+        name="typeSeance"
+        required
+      >
+        <option *ngFor="let type of typeSeanceOptions" [value]="type.value">
+          {{ type.label }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Volume Horaire Total -->
+    <div class="form-group">
+      <label for="volumeHoraireTotal">Volume Horaire Total</label>
       <input
-        id="nomTypeSceance"
-        type="text"
-        [(ngModel)]="nomTypeSceance"
-        placeholder="Entrez le nom du type de séance"
-        name="nomTypeSceance"
+        id="volumeHoraireTotal"
+        type="number"
+        [(ngModel)]="volumeHoraireTotal"
+        placeholder="Entrez le volume horaire total"
+        name="volumeHoraireTotal"
+        required
       />
     </div>
 
+    <!-- Volume Horaire par Semaine -->
+    <div class="form-group">
+      <label for="volumeHoraireSemaine">Volume Horaire par Semaine</label>
+      <input
+        id="volumeHoraireSemaine"
+        type="number"
+        [(ngModel)]="volumeHoraireSemaine"
+        placeholder="Entrez le volume horaire par semaine"
+        name="volumeHoraireSemaine"
+        required
+      />
+    </div>
+
+    <!-- Catégorie -->
+    <div class="form-group">
+      <label for="categorie">Catégorie</label>
+      <select
+        id="categorie"
+        [(ngModel)]="selectedCategorie"
+        name="categorie"
+      >
+        <option *ngFor="let categorie of categories" [value]="categorie.id">
+          {{ categorie.nom }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Matière -->
+    <div class="form-group">
+      <label for="matiere">Matière</label>
+      <select
+        id="matiere"
+        [(ngModel)]="selectedMatiere"
+        name="matiere"
+        required
+      >
+        <option *ngFor="let matiere of matieres" [value]="matiere.id">
+          {{ matiere.nom }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
     <button type="button" (click)="onSubmit()">
       {{ isEditMode ? 'Modifier' : 'Ajouter' }}
     </button>

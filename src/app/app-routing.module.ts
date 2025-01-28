@@ -13,7 +13,7 @@ import { AuthGuard } from './auth.guard';  // Importer le guard
 import {FiliereFormComponent} from "./filiere-form/filiere-form.component";
 import {FormProfComponent} from "./form-prof/form-prof.component";
 import {FormMatiereComponent} from "./form-matiere/form-matiere.component";
-import {FormTypeSceanceComponent} from "./form-type-sceance/form-type-sceance.component";
+import { FormTypeSceanceComponent } from './form-type-sceance/form-type-sceance.component';
 import {FormSalleComponent} from "./form-salle/form-salle.component";
 import {FormDurationComponent} from "./form-duration/form-duration.component";
 import { AuthComponent } from './auth/auth.component';
