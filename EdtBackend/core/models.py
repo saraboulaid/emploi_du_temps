@@ -2,8 +2,8 @@ from django.db import models
 from enum import Enum
 
 class Type(Enum):
-    Travaux_Pratiques = "TP"
-    Travaux_dérigés = "TD"
+    TP = "TP"
+    TD = "TD"
     Cours = "Cours"
 
 # Une salle à une catégorie c à d il est disponible que pour certaine type de seance 
