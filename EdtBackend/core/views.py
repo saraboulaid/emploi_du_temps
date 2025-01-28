@@ -272,6 +272,41 @@ def delete_prof(request, pk):
 #_________________________________________________________Prof_TypeSeance_________________________________________________________
 @api_view(['GET'])
 @is_authenticated
+def get_matieres_by_prof(request, pk):
+    try:
+        prof = Prof.objects.get(id=pk)
+    except Prof.DoesNotExist:
+        return Response({"error": "Professeur introuvable"}, status=status.HTTP_404_NOT_FOUND)
+
+    matieres = prof.matieres.all()  
+    serializer = MatiereSerializer(matieres, many=True)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['POST'])
+@is_authenticated
+def assign_matieres_to_prof(request,pk):
+    try:
+        prof = Prof.objects.get(id=pk)
+    except Prof.DoesNotExist:
+        return Response({"error": "Professeur introuvable"}, status=status.HTTP_404_NOT_FOUND)
+
+    matiere_ids = request.data.get('matieres', [])
+    if not isinstance(matiere_ids, list):
+        return Response({"error": "Le format des matières doit être une liste d'IDs"}, status=status.HTTP_400_BAD_REQUEST)
+
+    matieres = Matiere.objects.filter(id__in=matiere_ids)
+    if len(matieres) != len(matiere_ids):
+        return Response({"error": "Une ou plusieurs matières sont introuvables"}, status=status.HTTP_400_BAD_REQUEST)
+
+    prof.matieres.set(matieres)
+    prof.save()
+
+    return Response({"message": "Matières affectées avec succès"}, status=status.HTTP_200_OK)
+
+#_________________________________________________________Prof_TypeSeance_________________________________________________________
+@api_view(['GET'])
+@is_authenticated
 def get_prof_typeSeances(request, pk):
     try:
         prof = Prof.objects.get(pk=pk)

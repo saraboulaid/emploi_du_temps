@@ -40,6 +40,7 @@ class TypeSeance(models.Model):
 class Prof(models.Model):
     nom = models.CharField(max_length=255)
     prenom = models.CharField(max_length=255)
+    matieres = models.ManyToManyField(Matiere, related_name="profs")# Matières enseignées ajouter
 
 class Prof_TypeSeance(models.Model):
     prof = models.ForeignKey(Prof, on_delete = models.CASCADE)

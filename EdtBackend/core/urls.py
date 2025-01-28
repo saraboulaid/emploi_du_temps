@@ -32,6 +32,9 @@ urlpatterns = [
     path('profs/<int:pk>/update', views.update_prof, name='update-prof'), 
     path('profs/<int:pk>/delete', views.delete_prof, name='delete-prof'), 
 
+    path('profs/<int:pk>/assign-matieres', views.assign_matieres_to_prof, name='assign-matieres-to-prof'),
+    path('profs/<int:pk>/matieres', views.get_matieres_by_prof, name='matieres-prof'),
+
     path('profs/<int:pk>/typeSeances', views.get_prof_typeSeances, name='get-prof-typeSeances'),
     path('profs/<int:pk>/assign', views.assign_prof, name='assign-prof'),
     path('profs/<int:pk>/detach', views.detach_prof, name='detach-prof'),

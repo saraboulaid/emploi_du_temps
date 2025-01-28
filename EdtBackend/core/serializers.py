@@ -26,7 +26,7 @@ class TypeSeanceSerializer(serializers.ModelSerializer):
 class ProfSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prof
-        fields = '__all__'
+        fields = ['id', 'nom', 'prenom']
 
 class ProfTypeSeanceSerializer(serializers.ModelSerializer):
     class Meta:
