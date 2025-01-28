@@ -1,113 +1,18 @@
-<div class="table-container">
+<div class="button-container">
+  <button
+    type="button"
+    class="flex items-center justify-center text-white bg-blue-900 hover:bg-sky-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+    (click)="onGenerateSchedule()"
+  >
+    Generate EDT
+  </button>
+</div>
 
-  <div class="search-container">
-
-    <div >
-      <!-- Conteneur flex avec justification entre les éléments -->
-      <div class="flex items-center justify-between "> <!-- justify-between pour espacer les éléments -->
-
-        <!-- Champ de recherche -->
-        <label for="simple-search" class="sr-only">Search</label>
-        <div class="relative w-full max-w-xs"> <!-- max-w-xs pour limiter la largeur du champ de recherche -->
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg
-              aria-hidden="true"
-              class="w-5 h-5 text-gray-500 dark:text-gray-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </div>
-          <input
-            type="text"
-            id="simple-search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-            placeholder="Search"
-            [(ngModel)]="searchQuery"
-            (input)="filterFilieres()"
-            required=""
-          />
-        </div>
-
-        <!-- Bouton -->
-        <div class="button-container">
-          <button
-            type="button"
-            id="createProductModalButton"
-            data-modal-target="createProductModal"
-            data-modal-toggle="createProductModal"
-            class="flex items-center justify-center text-white bg-blue-900 hover:bg-sky-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
-          >
-            Generate EDT
-          </button>
-        </div>
-
-      </div>
-    </div>
-
-
-
-  <table mat-table [dataSource]="paginatedFilieres">
-    <!-- Nom -->
-    <ng-container matColumnDef="nom">
-      <th mat-header-cell *matHeaderCellDef> Nom filière </th>
-      <td mat-cell *matCellDef="let filiere"> {{ filiere.nom }} </td>
-    </ng-container>
-
-    <!-- Année -->
-    <ng-container matColumnDef="annee">
-      <th mat-header-cell *matHeaderCellDef> Année </th>
-      <td mat-cell *matCellDef="let filiere"> {{ filiere.annee }} </td>
-    </ng-container>
-
-    <!-- Semestre -->
-    <ng-container matColumnDef="semestre">
-      <th mat-header-cell *matHeaderCellDef> Mi-semestre </th>
-      <td mat-cell *matCellDef="let filiere"> {{ filiere.semestre }} </td>
-    </ng-container>
-
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let filiere" class="action-icons">
-        <ion-icon name="eye-outline" class="icon eye" (click)="viewDetails(filiere)"></ion-icon>
-        <ion-icon name="create-outline" class="icon edit" (click)="editFiliere(filiere)"></ion-icon>
-        <ion-icon name="trash-outline" class="icon delete" (click)="deleteFiliere(filiere)"></ion-icon>
-        <ion-icon name="download-outline" class="icon download" (click)="downloadFiliere(filiere)"></ion-icon>
-      </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-
-  <mat-paginator [length]="filieresFiltered.length"
-                 [pageSize]="pageSize"
-                 [pageIndex]="pageIndex"
-                 (page)="pageChanged($event)">
-  </mat-paginator>
-
- <!-- Modal pour afficher les détails de la filière -->
-<div class="modal" *ngIf="selectedFiliere && !isScheduleBoxVisible">
+<!-- Modal pour afficher les résultats -->
+<div *ngIf="scheduleData" class="modal">
   <div class="modal-content">
     <span class="close-btn" (click)="closeModal()">×</span>
-    <h2><strong>{{ selectedFiliere.nom }} - {{ selectedFiliere.semestre }} - {{ selectedFiliere.annee }}</strong></h2>
-    <img [src]="selectedFiliere.photo" alt="{{ selectedFiliere.nom }}" />
+    <h2>Emploi du Temps Généré</h2>
+    <pre>{{ scheduleData | json }}</pre> <!-- Affichage JSON formaté -->
   </div>
 </div>
-
-<!-- Schedule Box -->
-<div class="schedule-box" *ngIf="isScheduleBoxVisible">
-  <div class="schedule-box-content">
-    <span class="close-btn" (click)="closeScheduleBox()">×</span>
-    <!-- Passer la filière au ScheduleFormComponent -->
-    <app-schedule-form [filiere]="selectedFiliere"></app-schedule-form>
-  </div>
-</div>
-
