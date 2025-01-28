@@ -106,23 +106,34 @@ def calculate_soft_constraints(schedule):
     return score
 
 # Génération d'une population aléatoire
+# Génération d'une population aléatoire
 def generate_population(filieres, population_size=100):
     salles = list(Salle.objects.all())
     durations = list(Duration.objects.all())
     population = []
 
+    if not salles or not durations:
+        raise ValueError("Salles or Durations are empty, cannot generate population")
+
     for _ in range(population_size):
         schedule = []
         for filiere in filieres:
             matieres = filiere.matiere_set.prefetch_related('profs', 'typeseance_set').all()
+            if not matieres:
+                continue  # Skip if no matieres are available for this filière
+
             for matiere in matieres:
                 if matiere.typeseance_set.exists():
-                    salle = random.choice(salles)
-                    prof = random.choice(matiere.profs.all())
-                    duration = random.choice(durations)
-                    type_seance = random.choice(matiere.typeseance_set.all())
-                    effectif = random.randint(10, min(30, salle.effectif))
+                    salle = random.choice(salles) if salles else None
+                    prof = random.choice(matiere.profs.all()) if matiere.profs.all() else None
+                    duration = random.choice(durations) if durations else None
+                    type_seance = random.choice(matiere.typeseance_set.all()) if matiere.typeseance_set.exists() else None
 
+                    # Check if necessary data is missing
+                    if not salle or not prof or not duration or not type_seance:
+                        continue  # Skip this combination if essential info is missing
+                    
+                    effectif = random.randint(10, min(30, salle.effectif))
                     seance = Seance.objects.create(
                         salle=salle,
                         prof=prof,
@@ -158,8 +169,12 @@ def genetic_algorithm(filieres, iterations=100):
         # Croisement
         new_population = []
         for _ in range(len(population) // 2):
-            parent1 = random.choice(population)
-            parent2 = random.choice(population)
+            parent1 = random.choice(population) if population else None
+            parent2 = random.choice(population) if population else None
+
+            if parent1 is None or parent2 is None:
+                continue  # Skip if no parents available
+
             crossover_point = len(parent1) // 2
             offspring = parent1[:crossover_point] + parent2[crossover_point:]
             new_population.append(offspring)
@@ -169,13 +184,13 @@ def genetic_algorithm(filieres, iterations=100):
         # Mutation
         for schedule in population:
             if random.random() < 0.1:  # 10% de chance de mutation
-                seance = random.choice(schedule)
-                seance.salle = random.choice(Salle.objects.all())
-                seance.save()
+                seance = random.choice(schedule) if schedule else None
+                if seance:
+                    seance.salle = random.choice(Salle.objects.all()) if Salle.objects.all() else seance.salle
+                    seance.save()
 
     # Retourner la meilleure solution
     return population[0] if population else []
-
 
 
 
