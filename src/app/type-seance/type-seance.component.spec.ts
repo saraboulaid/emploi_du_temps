@@ -8,7 +8,7 @@ describe('TypeSeanceComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TypeSeanceComponent]
+      declarations: [TypeSeanceComponent],
     });
     fixture = TestBed.createComponent(TypeSeanceComponent);
     component = fixture.componentInstance;

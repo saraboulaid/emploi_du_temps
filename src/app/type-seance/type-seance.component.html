@@ -1,46 +1,53 @@
 <div class="container">
-    <div class="header">
-      <h1>Liste des Types de Séances</h1>
-      <button class="btn-add" (click)="navigateToForm('form')">
-        <i class="plus-icon">+</i>
-        Ajouter
-      </button>
-    </div>
-  
-    <table class="data-table" *ngIf="typeSeances.length > 0; else noData">
-      <thead>
-        <tr>
-          <th>Type de Séance</th>
-          <th>Volume Horaire Total</th>
-          <th>Volume Horaire par Semaine</th>
-          <th>Catégorie</th>
-          <th>Matière</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let typeSeance of typeSeances">
-          <td>{{ typeSeance.type_seance }}</td>
-          <td>{{ typeSeance.volume_horaire_total }}</td>
-          <td>{{ typeSeance.volume_horaire_semaine }}</td>
-          <td>{{ typeSeance.categorie }}</td>
-          <td>{{ typeSeance.matiere }}</td>
-          <td class="actions">
-            <button class="btn-action btn-edit" (click)="navigateToForm('edit/' + typeSeance.id)">
-              <i class="edit-icon">✎</i>
-            </button>
-            <button class="btn-action btn-delete" (click)="deleteTypeSeance(typeSeance.id)">
-              <i class="delete-icon">×</i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <ng-template #noData>
-      <div class="no-data">
-        <p>Aucun type de séance trouvé.</p>
-      </div>
-    </ng-template>
+  <div class="header">
+    <h1>Liste des Types de Séance</h1>
+    <button class="btn-add" (click)="navigateToForm('form')">
+      <i class="plus-icon">+</i>
+      Ajouter
+    </button>
   </div>
-  
+
+  <table class="data-table" *ngIf="typeSeances.length > 0; else noData">
+    <thead>
+      <tr>
+        <th>Type de Séance</th>
+        <th>Volume Horaire Total</th>
+        <th>Volume Horaire Semaine</th>
+        <th>Catégorie</th>
+        <th>Matière</th>
+        <!-- <th>Professeur</th> -->
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let typeSeance of typeSeances">
+        <td>{{ typeSeance.type_seance }}</td>
+        <td>{{ typeSeance.volume_horaire_total }}</td>
+        <td>{{ typeSeance.volume_horaire_semaine }}</td>
+        <td>{{ typeSeance.categorieName }}</td>
+        <td>{{ typeSeance.matiereName }}</td>
+        <!-- <td>{{ typeSeance.professeurName }}</td> -->
+        <td class="actions">
+          <button
+            class="btn-action btn-edit"
+            (click)="navigateToForm('edit/' + typeSeance.id)"
+          >
+            <i class="edit-icon">✎</i>
+          </button>
+          <button
+            class="btn-action btn-delete"
+            (click)="deleteTypeSeance(typeSeance.id)"
+          >
+            <i class="delete-icon">×</i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noData>
+    <div class="no-data">
+      <p>Aucun type de séance trouvé.</p>
+    </div>
+  </ng-template>
+</div>
