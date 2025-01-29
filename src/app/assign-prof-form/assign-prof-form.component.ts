@@ -15,7 +15,7 @@ export class AssignProfFormComponent implements OnInit {
   id: number | null = null;
   matieres: any = [];
   selectedMatieres: number[] = [];
-
+  prof: any;
 
   constructor( private route: ActivatedRoute, private matiereService: MatiereService, private profService: ProfService, private router: Router) {}
 
@@ -28,7 +28,16 @@ export class AssignProfFormComponent implements OnInit {
       (error) => {
         console.error('Erreur lors de la récupération des matieres', error);
       }
-    );  }
+    );  
+    this.profService.getProfById(this.id!).subscribe(
+      (data) => {
+        this.prof = data;
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération du prof', error);
+      }
+    )
+  }
 
     onSubmit() {
       console.log("Matières sélectionnées:", this.selectedMatieres);

@@ -1,5 +1,5 @@
-<div class="container">
-    <h2>Assigner des matières au proffesseur</h2>
+<div class="assign-prof-form-container">
+    <h2>Assigner des matières au professeur {{ prof?.nom }} {{ prof?.prenom }}</h2>
   
     <!-- Formulaire -->
     <form (ngSubmit)="onSubmit()" #assignProfForm="ngForm">
