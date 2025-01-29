@@ -49,4 +49,8 @@ export class ProfsComponent implements OnInit {
       );
     }
   }
+  
+  viewMatieres(id: number) {
+    this.router.navigate([`/profs/${id}/matieres`]);
+  }
 }

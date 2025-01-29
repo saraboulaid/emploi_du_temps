@@ -32,4 +32,13 @@ export class ProfService {
   deleteProf(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}/delete`);
   }
+  //assigner une liste de matieres à un prof
+  assignMatieres(id: number, matieres: number[]): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/${id}/assign-matieres`, { matieres });
+  }
+  
+  //recuperer les matieres assigner à un prof
+  getMatieres(id: number): Observable<any[]>{
+    return this.http.get<any[]>(`${this.baseUrl}/${id}/matieres`);
+  }
 }

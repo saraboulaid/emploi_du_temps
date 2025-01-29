@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="header">
+        <h1>Liste des Matières </h1>
+        <button
+            class="btn-action btn-edit"
+            (click)="assignMatiere(prof.id)"
+        >
+            Assigner des matières
+        </button>
+    </div>
+
+    <table class="data-table" *ngIf="matieres.length > 0; else noData">
+        <thead>
+        <tr>
+          <th>Nom Matière</th>
+          <th>Filière</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let matiere of matieres">
+          <td>{{ matiere.nom }}</td>
+          <td>{{ matiere.filiereNom }}</td>
+          <td class="actions">
+            <button class="btn-action btn-delete" (click)="desafecterMatiere(matiere.id)">
+              <i class="delete-icon">×</i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    
+      <ng-template #noData>
+        <div class="no-data">
+          <p>Aucune matière trouvée.</p>
+        </div>
+      </ng-template>
+    </div>
+    
+    
+    

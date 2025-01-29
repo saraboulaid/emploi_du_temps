@@ -19,6 +19,8 @@ import {FormDurationComponent} from "./form-duration/form-duration.component";
 import { AuthComponent } from './auth/auth.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { CategorieFormComponent } from './categorie-form/categorie-form.component';
+import { AssignProfFormComponent } from './assign-prof-form/assign-prof-form.component';
+import { ProfMatieresComponent } from './prof-matieres/prof-matieres.component';
 
 const routes: Routes = [
   { path: 'filiere', component: FilliereComponent, canActivate: [AuthGuard] },
@@ -58,6 +60,8 @@ const routes: Routes = [
   { path: 'duration/form', component: FormDurationComponent, canActivate: [AuthGuard]  },
   { path: 'duration/edit/:id', component: FormDurationComponent , canActivate: [AuthGuard] },
 
+  { path: 'assign-matiere/:id', component: AssignProfFormComponent , canActivate: [AuthGuard] },
+  { path: 'profs/:id/matieres', component: ProfMatieresComponent , canActivate: [AuthGuard] },
 
   { path: 'schedule/edit/:id', component: ScheduleFormComponent, canActivate: [AuthGuard]  },
   { path: 'login', component: AuthComponent },  // Ajouter une page de connexion

@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Assigner des matières au proffesseur</h2>
+  
+    <!-- Formulaire -->
+    <form (ngSubmit)="onSubmit()" #assignProfForm="ngForm">
+      <div class="form-group">
+        <label for="matieres">Choisir des matières</label>
+        
+        <!-- Sélecteur multi-choix -->
+        <select id="matieres" name="matieres" [(ngModel)]="selectedMatieres" multiple required class="form-control">
+          <option *ngFor="let matiere of matieres" [value]="matiere.id">
+            {{ matiere.nom }} 
+          </option>
+        </select>
+      </div>
+  
+      <!-- Bouton de soumission -->
+      <button type="submit" class="btn btn-primary" [disabled]="!assignProfForm.valid">
+        Assigner
+      </button>
+    </form>
+  </div>
+  
