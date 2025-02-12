@@ -24,18 +24,34 @@ export class EmploiDuTempsComponent {
 
   // Méthode appelée lors du clic sur le bouton
   onGenerateSchedule(): void {
-    this.isLoading = true; // Affiche un indicateur de chargement si nécessaire
-    this.http.get(`${this.baseUrl}/generate-schedule/`).subscribe({
-      next: (data) => {
-        this.scheduleData = data; // Stocke les données retournées
-        this.isLoading = false; // Arrête le chargement
+    this.isLoading = true;
+  
+    this.http.get(`${this.baseUrl}/generate-schedule/`, { responseType: 'blob' }).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+  
+        // Créer un objet Blob pour le fichier PDF
+        const blob = new Blob([response], { type: 'application/pdf' });
+  
+        // Créer un lien de téléchargement
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'emplois_du_temps.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+  
+        // Libérer l'URL de l'objet
+        window.URL.revokeObjectURL(url);
       },
       error: (error) => {
         console.error('Erreur lors de la génération de l’emploi du temps', error);
-        this.isLoading = false; // Arrête le chargement
+        this.isLoading = false;
       },
     });
   }
+  
 
   // Méthode pour fermer la modal
   closeModal(): void {
