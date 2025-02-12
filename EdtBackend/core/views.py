@@ -473,65 +473,86 @@ def delete_salle(request, pk):
     return Response({'message': 'la salle a bien été supprimer'},status=status.HTTP_204_NO_CONTENT)
 
 #_______________________________________________génération d'emploi du temps_________________________________________________________________
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter, landscape
+from reportlab.pdfgen import canvas
+from reportlab.platypus import Table, TableStyle
+from reportlab.lib import colors
+from io import BytesIO
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Filiere, Seance, Duration
+
+
 @api_view(['GET'])
 @is_authenticated
 def generate_schedule(request):
-    # Récupérer toutes les filières
     filieres = Filiere.objects.all()
+    
     if not filieres.exists():
         return Response(
             {"error": "Aucune filière disponible pour générer un emploi du temps."},
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    # Liste pour stocker les emplois du temps générés
-    generated_schedules = []
+    buffer = BytesIO()
+    pdf_canvas = canvas.Canvas(buffer, pagesize=landscape(letter))
+    pdf_canvas.setFont("Helvetica-Bold", 18)
+    pdf_canvas.drawCentredString(400, 550, "Emplois du Temps")
+    y_position = 500
 
-    # Générer l'emploi du temps pour chaque filière
     for filiere in filieres:
-        # Générer le meilleur emploi du temps avec l'algorithme génétique
-        best_schedule = genetic_algorithm([filiere])
-
-        # Calculer le score de fitness
-        fitness_score = calculate_soft_constraints(best_schedule)
-
-        # Créer l'instance de Schedule
-        schedule = Schedule.objects.create(fitness_score=fitness_score, filiere=filiere)
-
-        # Ajouter les séances à l'emploi du temps
-        schedule_details = []  # Liste pour stocker les détails des séances de cet emploi du temps
-        print("Contenu de best_schedule:", best_schedule)
-        print("debut ajout de seance")
-        for seance_data in best_schedule:
-            if not isinstance(seance_data, Seance):
-                print(f"Erreur : seance_data n'est pas un objet Seance : {seance_data}")
+        try:
+            best_schedule = genetic_algorithm([filiere])
+            if not best_schedule:
                 continue
+            
+            pdf_canvas.setFont("Helvetica-Bold", 14)
+            pdf_canvas.drawString(50, y_position, f"Filière : {filiere.nom}")
+            y_position -= 30
 
-            print(f"Séance à ajouter: Salle: {seance_data.salle}, Prof: {seance_data.prof}, "
-                  f"Durations: {seance_data.durations.all()}, Type de séance: {seance_data.type_seance}")
+            data = [["Jour", "Heure", "Salle", "Professeur", "Type de Séance"]]
+            for seance in best_schedule:
+                if isinstance(seance, Seance):
+                    for duration in seance.durations.all():
+                        if isinstance(duration, Duration):
+                            data.append([
+                                duration.jour,
+                                f"{duration.horaire_debut_seance} - {duration.horaire_fin_seance}",
+                                seance.salle.nom,
+                                f"{seance.prof.nom} {seance.prof.prenom}",
+                                seance.type_seance.type_seance
+                            ])
 
-            # Ajouter la séance à l'emploi du temps
-            schedule.seances.add(seance_data)
+            table = Table(data, colWidths=[100, 120, 100, 150, 120])
+            table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+                ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+                ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+                ('GRID', (0, 0), (-1, -1), 1, colors.black)
+            ]))
 
-            # Sérialiser la séance avec SeanceSerializer
-            seance_serialized = SeanceSerializer(seance_data)
-           
+            if y_position - (len(data) * 20) < 50:
+                pdf_canvas.showPage()
+                y_position = 500
+                pdf_canvas.setFont("Helvetica-Bold", 14)
+                pdf_canvas.drawString(50, y_position, f"Filière : {filiere.nom}")
+                y_position -= 30
 
-            # Ajouter les détails de la séance dans le format attendu pour la réponse
-            schedule_details.append(seance_serialized.data)
+            table.wrapOn(pdf_canvas, 50, y_position)
+            table.drawOn(pdf_canvas, 50, y_position)
+            y_position -= (len(data) * 20 + 30)
 
-        # Ajouter l'emploi du temps généré à la liste
-        generated_schedules.append({
-            'filiere': filiere.nom,
-            'schedule_id': schedule.id,
-            'fitness_score': fitness_score,
-            'schedule_details': schedule_details
-        })
+        except Exception as e:
+            print(f"Erreur pour la filière {filiere.nom}: {str(e)}")
 
-    return Response(
-        {
-            "message": "Emplois du temps générés avec succès!",
-            "generated_schedules": generated_schedules
-        },
-        status=status.HTTP_201_CREATED
-    )
+    pdf_canvas.save()
+    buffer.seek(0)
+    response = HttpResponse(buffer.getvalue(), content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="emplois_du_temps.pdf"'
+    buffer.close()
+    return response
